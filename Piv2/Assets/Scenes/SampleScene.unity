@@ -565,7 +565,7 @@ MonoBehaviour:
     m_Flags: 0
   rb: {fileID: 0}
   WishDirAmplifier: 2
-  M_WishDirAmplifier: 1
+  M_WishDirAmplifier: 2
   C_CurrentDirAmplifier: 1
 --- !u!136 &1369618346
 CapsuleCollider:

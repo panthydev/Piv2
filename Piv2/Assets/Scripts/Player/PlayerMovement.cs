@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] private float WishDirAmplifier = 2;
-    [SerializeField] private float M_WishDirAmplifier = 1000;
+    [SerializeField] private float M_WishDirAmplifier = 0.1f;
     [SerializeField] private float C_CurrentDirAmplifier = 1;
    
     private void CalculatePlayerDirection()
@@ -70,6 +70,9 @@ public class PlayerMovement : MonoBehaviour
         _currentDir *= C_CurrentDirAmplifier;
 
         _currentDir = K_WishDir + M_WishDir + _currentDir;
+        _currentDir = Vector3.ClampMagnitude(_currentDir, 10);
+        
+        
 
         rb.linearVelocity = _currentDir;
 
