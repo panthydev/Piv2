@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public InputAction mouseInput;
     private Vector3 K_WishDir;
     private Vector2 M_WishDir;
-    private Vector2 M_Delta;
+    private Vector2 _mDelta;
 
     private Camera _mainCamera;
     
@@ -39,8 +39,8 @@ public class PlayerMovement : MonoBehaviour
         K_WishDir.y = 0;
         print("Keyboard Direction: "+ K_WishDir);
 
-        M_Delta = mouseInput.ReadValue<Vector2>();
-        print("Mouse input: " + M_Delta);
+        _mDelta = mouseInput.ReadValue<Vector2>();
+        print("Mouse input: " + _mDelta);
     }
 
 
@@ -57,27 +57,14 @@ public class PlayerMovement : MonoBehaviour
     private void CalculateLook()
     {
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
-
-        Vector3 playerEulerRotation = new Vector3(0, M_Delta.x, 0);
-        Vector3 cameraEulerRotation = new Vector3(M_Delta.y , 0, 0);
-
         
-        // UP DOWN
-        _verticalAngle = Mathf.Clamp(_verticalAngle += M_Delta.y *-1, _lowerLookLimit, _upperLookLimit); // update stored camera angle from mouse input
-        
-        Vector3 newCameraRotation = new Vector3(_verticalAngle, 0, 0);
-        
-        _mainCamera.transform.eulerAngles = newCameraRotation; // set camera new rotation
-        
-        // LEFT RIGHT
-
-
-        _horizontalAngle += M_Delta.x;
+        _verticalAngle = Mathf.Clamp(_verticalAngle += _mDelta.y *-1, _lowerLookLimit, _upperLookLimit); // update stored camera angle from mouse input
+        _horizontalAngle += _mDelta.x;
 
         Vector3 newPlayerRotation = new Vector3(0, _horizontalAngle, 0);
 
-        transform.eulerAngles = newPlayerRotation;
-        _mainCamera.transform.eulerAngles = new Vector3(_verticalAngle, _horizontalAngle, 0);
+        transform.eulerAngles = newPlayerRotation; // set body rotation
+        _mainCamera.transform.eulerAngles = new Vector3(_verticalAngle, _horizontalAngle, 0); // set camera rotation up/down and left/right
 
 
 
