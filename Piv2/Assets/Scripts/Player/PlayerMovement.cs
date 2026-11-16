@@ -47,13 +47,13 @@ public class PlayerMovement : MonoBehaviour
     {
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
 
-        Vector3 playerEulerRotation = new Vector3(0, M_Delta.y, 0);
-        Vector3 cameraEulerRotation = new Vector3(M_Delta.x, 0, 0);
+        Vector3 playerEulerRotation = new Vector3(0, M_Delta.x, 0);
+        Vector3 cameraEulerRotation = new Vector3(M_Delta.y, 0, 0);
 
 
-        if (_mainCamera.transform.rotation.eulerAngles.y > 89)
+        if (_mainCamera.transform.rotation.eulerAngles.x > 89)
         {
-            Vector3 newRotation = new Vector3(_mainCamera.transform.rotation.eulerAngles.x, 89,
+            Vector3 newRotation = new Vector3(89, _mainCamera.transform.rotation.eulerAngles.y,
                 _mainCamera.transform.rotation.eulerAngles.z);
 
             _mainCamera.transform.eulerAngles = newRotation;
