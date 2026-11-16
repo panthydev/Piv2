@@ -10,10 +10,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 M_WishDir;
     private Vector2 M_Delta;
 
-    private Camera _mainCamera = Camera.main;
+    private Camera _mainCamera;
     
     private void Awake()
     {
+        _mainCamera = Camera.main;
         Cursor.visible = false;
         moveInput.Enable();
         mouseInput.Enable();
@@ -22,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GetPlayerInput();
+        CalculateLook();
     }
 
     private void GetPlayerInput()
@@ -49,9 +51,13 @@ public class PlayerMovement : MonoBehaviour
         Vector3 cameraEulerRotation = new Vector3(M_Delta.x, 0, 0);
 
 
-        if (_mainCamera.transform.rotation.y > 89)
+        if (_mainCamera.transform.rotation.eulerAngles.y > 89)
         {
-            _mainCamera.transform.rotation. = new Vector3(_mainCamera.transform.rotation.x, 89, _mainCamera.transform.rotation.z);
+            Vector3 newRotation = new Vector3(_mainCamera.transform.rotation.eulerAngles.x, 89,
+                _mainCamera.transform.rotation.eulerAngles.z);
+
+            _mainCamera.transform.eulerAngles = newRotation;
+
         }
         _mainCamera.transform.Rotate(cameraEulerRotation);
         
