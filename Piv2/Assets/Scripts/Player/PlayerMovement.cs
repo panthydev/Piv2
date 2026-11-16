@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     [SerializeField] private float WishDirAmplifier = 2;
-    [SerializeField] private float M_WishDirAmplifier = 1;
+    [SerializeField] private float M_WishDirAmplifier = 1000;
     [SerializeField] private float C_CurrentDirAmplifier = 1;
    
     private void CalculatePlayerDirection()
@@ -61,6 +61,9 @@ public class PlayerMovement : MonoBehaviour
         //keep current direction as a stored variable, NOT rb direction
         
         // set linear velocity directly
+        M_WishDir = _mainCamera.transform.forward;
+        
+        
 
         K_WishDir *= WishDirAmplifier;
         M_WishDir *= M_WishDirAmplifier;
