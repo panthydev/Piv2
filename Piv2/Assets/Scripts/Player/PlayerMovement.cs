@@ -43,23 +43,32 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+
+    private float _upperLookLimit = 60;
+    private float _lowerLookLimit = -89f;
+
     private void CalculateLook()
     {
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
 
         Vector3 playerEulerRotation = new Vector3(0, M_Delta.x, 0);
-        Vector3 cameraEulerRotation = new Vector3(M_Delta.y, 0, 0);
+        Vector3 cameraEulerRotation = new Vector3(M_Delta.y *-1, 0, 0);
+        _mainCamera.transform.Rotate(cameraEulerRotation);
 
-
-        if (_mainCamera.transform.rotation.eulerAngles.x > 89)
+        float currAngle = _mainCamera.transform.rotation.eulerAngles.x;
+        
+        if (currAngle > _upperLookLimit)
         {
-            Vector3 newRotation = new Vector3(89, _mainCamera.transform.rotation.eulerAngles.y,
+            Vector3 newRotation = new Vector3(_upperLookLimit -1, _mainCamera.transform.rotation.eulerAngles.y,
                 _mainCamera.transform.rotation.eulerAngles.z);
-
+            print("upper limit");
             _mainCamera.transform.eulerAngles = newRotation;
 
+        } else if (currAngle < _lowerLookLimit)
+        {
+            print("lower limit");
         }
-        _mainCamera.transform.Rotate(cameraEulerRotation);
+        
         
 
 
