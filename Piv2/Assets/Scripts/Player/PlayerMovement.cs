@@ -142,3 +142,4 @@ public class PlayerMovement : MonoBehaviour
 - add walljumps
 - add wall hold/grab (optional)
 - maybe fix animations ? 
+*/
