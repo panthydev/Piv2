@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private float _verticalAngle;
+    
     public InputAction moveInput;
     public InputAction mouseInput;
     private Vector3 K_WishDir;
@@ -15,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
+
+        _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
         Cursor.visible = false;
         moveInput.Enable();
         mouseInput.Enable();
@@ -46,31 +50,21 @@ public class PlayerMovement : MonoBehaviour
 
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
+    
 
     private void CalculateLook()
     {
+        
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
 
         Vector3 playerEulerRotation = new Vector3(0, M_Delta.x, 0);
         Vector3 cameraEulerRotation = new Vector3(M_Delta.y *-1, 0, 0);
-        _mainCamera.transform.Rotate(cameraEulerRotation);
 
-        float currAngle = _mainCamera.transform.rotation.eulerAngles.x;
+        _verticalAngle = Mathf.Clamp(_verticalAngle += M_Delta.y, _lowerLookLimit, _upperLookLimit); // update stored camera angle from mouse input
         
-        if (currAngle > _upperLookLimit)
-        {
-            Vector3 newRotation = new Vector3(_upperLookLimit -1, _mainCamera.transform.rotation.eulerAngles.y,
-                _mainCamera.transform.rotation.eulerAngles.z);
-            print("upper limit");
-            _mainCamera.transform.eulerAngles = newRotation;
-
-        } else if (currAngle < _lowerLookLimit)
-        {
-            print("lower limit");
-        }
+        Vector3 newCameraRotation = new Vector3(_verticalAngle, 0, 0);
         
-        
-
+        _mainCamera.transform.eulerAngles = newCameraRotation; // set camera new rotation
 
     }
     
