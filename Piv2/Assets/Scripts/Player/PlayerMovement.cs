@@ -134,3 +134,11 @@ public class PlayerMovement : MonoBehaviour
     
     
 }
+/* TODO
+- add ground detection via raycast
+- add jumping
+- need ramp-up to max speed, instead of insta top speed
+- add slide
+- add walljumps
+- add wall hold/grab (optional)
+- maybe fix animations ? 
