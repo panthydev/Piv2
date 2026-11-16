@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     
     public InputAction moveInput;
     public InputAction mouseInput;
+    private Vector3 K_Input;
     private Vector3 K_WishDir;
     private Vector3 M_WishDir;
     private Vector3 _currentDir;
@@ -39,10 +40,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void GetPlayerInput()
     {
-        K_WishDir = moveInput.ReadValue<Vector2>().normalized;
-        K_WishDir.z = K_WishDir.y;
-        K_WishDir.y = 0;
-        print("Keyboard Direction: "+ K_WishDir);
+        K_Input = moveInput.ReadValue<Vector2>().normalized;
+        K_Input.z = K_Input.y;
+        K_Input.y = 0;
+        print("Keyboard Direction: "+ K_Input);
 
         _mDelta = mouseInput.ReadValue<Vector2>();
        // print("Mouse input: " + _mDelta);
@@ -62,19 +63,50 @@ public class PlayerMovement : MonoBehaviour
         
         // set linear velocity directly
         M_WishDir = _mainCamera.transform.forward;
+
+
+        K_WishDir = new Vector3(0, 0, 0);
+
+        if (K_Input.x < 0) K_WishDir.x = transform.right.x *-1;
+        if (K_Input.z < 0) K_WishDir.z = transform.forward.z *-1;
         
+        if (K_Input.x > 0) K_WishDir.x = transform.right.x;
+        else if (K_Input.x == 0)
+        {
+            K_WishDir.x = 0f;
+        }
+        if (K_Input.z > 0) K_WishDir.z = transform.forward.z;
+        else if (K_Input.z == 0)
+        {
+            K_WishDir.z = 0;
+        }
         
 
         K_WishDir *= WishDirAmplifier;
         M_WishDir *= M_WishDirAmplifier;
         _currentDir *= C_CurrentDirAmplifier;
 
-        _currentDir = K_WishDir + M_WishDir + _currentDir;
-        _currentDir = Vector3.ClampMagnitude(_currentDir, 10);
         
         
+        if (K_Input.magnitude != 0)
+        {
+            _currentDir = K_Input + M_WishDir + _currentDir;
+            _currentDir = Vector3.ClampMagnitude(_currentDir, 10);    
+            rb.linearVelocity = _currentDir;
+        }
+        else
+        {
+            if (rb.linearVelocity.magnitude < 0.1f)
+            {
+                rb.linearVelocity = new Vector3(0, 0, 0);
+            }
+            else
+            {
+                rb.linearVelocity /= 1.1f;
+            }
+        }
 
-        rb.linearVelocity = _currentDir;
+        
 
 
 

@@ -129,7 +129,7 @@
       <updated>1794228051223</updated>
       <workItem from="1794228053522" duration="7000" />
       <workItem from="1794228333501" duration="4191000" />
-      <workItem from="1794851708450" duration="7267000" />
+      <workItem from="1794851708450" duration="8834000" />
     </task>
     <servers />
   </component>
@@ -162,19 +162,6 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs</url>
-          <line>71</line>
-          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Player\PlayerMovement.cs" containingFunctionPresentation="Method 'CalculatePlayerDirection'">
-            <startOffsets>
-              <option value="1889" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1939" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
