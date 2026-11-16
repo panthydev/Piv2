@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _mainCamera = Camera.main;
+        rb = GetComponent<Rigidbody>();
 
         _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
         Cursor.visible = false;
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GetPlayerInput();
         CalculateLook();
+        CalculatePlayerDirection();
     }
 
     private void GetPlayerInput()
@@ -43,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         print("Keyboard Direction: "+ K_WishDir);
 
         _mDelta = mouseInput.ReadValue<Vector2>();
-        print("Mouse input: " + _mDelta);
+       // print("Mouse input: " + _mDelta);
     }
 
 
