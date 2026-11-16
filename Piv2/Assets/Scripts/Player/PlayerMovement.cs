@@ -65,8 +65,14 @@ public class PlayerMovement : MonoBehaviour
         M_WishDir = _mainCamera.transform.forward;
 
 
-        K_WishDir = new Vector3(0, 0, 0);
+        Vector3 right = transform.right;
+        right *= K_Input.x;
 
+        Vector3 forward = transform.forward;
+        forward *= K_Input.z;
+
+        K_WishDir = right + forward;
+/*
         if (K_Input.x < 0) K_WishDir.x = transform.right.x *-1;
         if (K_Input.z < 0) K_WishDir.z = transform.forward.z *-1;
         
@@ -80,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
         {
             K_WishDir.z = 0;
         }
-        
+  */      
 
         K_WishDir *= WishDirAmplifier;
         M_WishDir *= M_WishDirAmplifier;
@@ -90,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (K_Input.magnitude != 0)
         {
-            _currentDir = K_Input + M_WishDir + _currentDir;
+            _currentDir = K_WishDir + _currentDir;
             _currentDir = Vector3.ClampMagnitude(_currentDir, 10);    
             rb.linearVelocity = _currentDir;
         }
