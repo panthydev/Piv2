@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
     public InputAction moveInput;
     public InputAction mouseInput;
     private Vector3 K_WishDir;
-    private Vector2 M_WishDir;
+    private Vector3 M_WishDir;
+    private Vector3 _currentDir;
     private Vector2 _mDelta;
+
+    public Rigidbody rb;
 
     private Camera _mainCamera;
     
@@ -44,9 +47,29 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+
+
+    [SerializeField] private float WishDirAmplifier = 2;
+    [SerializeField] private float M_WishDirAmplifier = 1;
+    [SerializeField] private float C_CurrentDirAmplifier = 1;
+   
     private void CalculatePlayerDirection()
     {
+        //new direction is the result of the current direction and the inputDirection and the look direction
+        //keep current direction as a stored variable, NOT rb direction
         
+        // set linear velocity directly
+
+        K_WishDir *= WishDirAmplifier;
+        M_WishDir *= M_WishDirAmplifier;
+        _currentDir *= C_CurrentDirAmplifier;
+
+        _currentDir = K_WishDir + M_WishDir + _currentDir;
+
+        rb.linearVelocity = _currentDir;
+
+
+
     }
 
 
@@ -57,7 +80,6 @@ public class PlayerMovement : MonoBehaviour
     private void CalculateLook()
     {
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
-        
         _verticalAngle = Mathf.Clamp(_verticalAngle += _mDelta.y *-1, _lowerLookLimit, _upperLookLimit); // update stored camera angle from mouse input
         _horizontalAngle += _mDelta.x;
 
@@ -65,10 +87,6 @@ public class PlayerMovement : MonoBehaviour
 
         transform.eulerAngles = newPlayerRotation; // set body rotation
         _mainCamera.transform.eulerAngles = new Vector3(_verticalAngle, _horizontalAngle, 0); // set camera rotation up/down and left/right
-
-
-
-
     }
     
     
