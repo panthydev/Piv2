@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 _gravityVector;
     private float _verticalAngle;
     private float _horizontalAngle = 0f;
-    
+
     public InputAction moveInput;
     public InputAction mouseInput;
     public InputAction jumpInput;
@@ -21,13 +21,14 @@ public class PlayerMovement : MonoBehaviour
 
 
     public float acceleration = 1.5f;
-    private float MaxSpeed = 10;
+    public float airAcceleration = 1.5f;
+    public float MaxSpeed = 10;
     private float MaxAirSpeed = 20;
 
     public Rigidbody rb;
 
     private Camera _mainCamera;
-    
+
     private void Awake()
     {
         _mainCamera = Camera.main;
@@ -53,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
     {
         DoJump();
         CalculatePlayerDirection();
-        
     }
 
 
@@ -61,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isAir)
         {
-            
         }
     }
 
@@ -70,46 +69,35 @@ public class PlayerMovement : MonoBehaviour
         if (_jumpValue == 1)
         {
             
-            _currentDir = new Vector3(_currentDir.x, 2000, _currentDir.z);    
         }
-        
     }
 
     private bool CanJump()
     {
         return false;
     }
-    
 
     private void GetPlayerInput()
     {
         K_Input = moveInput.ReadValue<Vector2>().normalized;
         K_Input.z = K_Input.y;
         K_Input.y = 0;
-      //  print("Keyboard Direction: "+ K_Input);
 
         _mDelta = mouseInput.ReadValue<Vector2>();
         _jumpValue = jumpInput.ReadValue<float>();
-        // print("Mouse input: " + _mDelta);
     }
 
     [SerializeField] private float WishDirAmplifier = 2;
     [SerializeField] private float M_WishDirAmplifier = 0.1f;
-    [SerializeField] private float C_CurrentDirAmplifier = 1;
-    
-    
-    
-   
+
+
     private void CalculatePlayerDirection()
     {
-        float maxVelocityChange = acceleration * Time.fixedDeltaTime;
-        //new direction is the result of the current direction and the inputDirection and the look direction
-        //keep current direction as a stored variable, NOT rb direction
-        
-        // set linear velocity directly
+        float maxGroundVelocityChange = acceleration * Time.fixedDeltaTime;
+        float maxAirVelocityChange = airAcceleration * Time.fixedDeltaTime; // for DE-accelerating usually.
         M_WishDir = _mainCamera.transform.forward;
-
-
+        
+        
         Vector3 right = transform.right;
         right *= K_Input.x;
         Vector3 forward = transform.forward;
@@ -120,61 +108,56 @@ public class PlayerMovement : MonoBehaviour
         //scalar ts
         K_WishDir *= WishDirAmplifier;
         M_WishDir *= M_WishDirAmplifier;
-        _currentDir *= C_CurrentDirAmplifier;
 
 
-      
-        
         if (K_Input.magnitude != 0 && !isAir)
         {
-            
             Vector3 wishDir = K_WishDir * MaxSpeed;
-            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxVelocityChange);
+            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
-            
-            //_currentDir = K_WishDir + _currentDir;
-            //_currentDir = Vector3.ClampMagnitude(_currentDir, MaxSpeed);
-
-            //_currentDir += _gravityVector;
-            //rb.linearVelocity = _currentDir;
-        } else if (isAir)
+        }
+        else if (isAir && rb.linearVelocity.magnitude > 0.1) // air control / steering
         {
-            _currentDir = K_WishDir + M_WishDir + _currentDir;
-            _currentDir = Vector3.ClampMagnitude(_currentDir, MaxAirSpeed);
-            _currentDir += _gravityVector;
-            rb.linearVelocity = _currentDir;
-            //should prolly slow down as well ?
+            Vector3 wishDir = (K_WishDir + M_WishDir);
+            
+            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxAirVelocityChange);
+            rb.linearVelocity = newVelocityDir;
         }
         else
         {
             Vector3 wishDir = K_WishDir * MaxSpeed;
-            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxVelocityChange);
+            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
         }
-
+i
+        if (isAir)
+        {
+            Vector3 wishDir = new Vector3(0, rb.linearVelocity.y, 0);
+            
+            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, 2);
+            rb.linearVelocity = newVelocityDir; 
+        }
         
-
-
-
     }
 
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
-    
+
 
     private void CalculateLook()
     {
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
-        _verticalAngle = Mathf.Clamp(_verticalAngle += _mDelta.y *-1, _lowerLookLimit, _upperLookLimit); // update stored camera angle from mouse input
+        _verticalAngle =
+            Mathf.Clamp(_verticalAngle += _mDelta.y * -1, _lowerLookLimit,
+                _upperLookLimit); // update stored camera angle from mouse input
         _horizontalAngle += _mDelta.x;
 
         Vector3 newPlayerRotation = new Vector3(0, _horizontalAngle, 0);
 
         transform.eulerAngles = newPlayerRotation; // set body rotation
-        _mainCamera.transform.eulerAngles = new Vector3(_verticalAngle, _horizontalAngle, 0); // set camera rotation up/down and left/right
+        _mainCamera.transform.eulerAngles =
+            new Vector3(_verticalAngle, _horizontalAngle, 0); // set camera rotation up/down and left/right
     }
-    
-    
 }
 /* TODO
 - add ground detection via raycast
@@ -184,5 +167,5 @@ public class PlayerMovement : MonoBehaviour
 - add slide
 - add walljumps
 - add wall hold/grab (optional)
-- maybe fix animations ? 
+- maybe fix animations ?
 */

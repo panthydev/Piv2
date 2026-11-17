@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3897f628a90b04e8191f546657bac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  isAir: 0
+  isAir: 1
   moveInput:
     m_Name: Move Input
     m_Type: 0
@@ -581,11 +581,12 @@ MonoBehaviour:
       m_Action: Jump Input
       m_Flags: 0
     m_Flags: 0
-  acceleration: 20
+  acceleration: 25
+  airAcceleration: 40
+  MaxSpeed: 6
   rb: {fileID: 0}
-  WishDirAmplifier: 2
-  M_WishDirAmplifier: 2
-  C_CurrentDirAmplifier: 1
+  WishDirAmplifier: 1
+  M_WishDirAmplifier: 1
 --- !u!136 &1369618346
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1502,7 +1503,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 100, y: 1, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
