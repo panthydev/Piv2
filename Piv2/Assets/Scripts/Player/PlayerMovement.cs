@@ -5,16 +5,19 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public bool isAir;
+    private Vector3 _gravityVector;
     private float _verticalAngle;
     private float _horizontalAngle = 0f;
     
     public InputAction moveInput;
     public InputAction mouseInput;
+    public InputAction jumpInput;
     private Vector3 K_Input;
     private Vector3 K_WishDir;
     private Vector3 M_WishDir;
     private Vector3 _currentDir;
     private Vector2 _mDelta;
+    private float _jumpValue;
 
 
     private float MaxSpeed = 10;
@@ -29,34 +32,72 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
 
+        _gravityVector = new Vector3(0, this.transform.up.y * -9, 0);
+
         _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
         moveInput.Enable();
         mouseInput.Enable();
+        jumpInput.Enable();
     }
 
     private void Update()
     {
         GetPlayerInput();
         CalculateLook();
-        CalculatePlayerDirection();
     }
+
+    private void FixedUpdate()
+    {
+        DoJump();
+        CalculatePlayerDirection();
+        
+    }
+
+
+    private void RunGroundDetection()
+    {
+        if (isAir)
+        {
+            
+        }
+    }
+
+    private void DoJump()
+    {
+        if (_jumpValue == 1)
+        {
+            
+            _currentDir = new Vector3(_currentDir.x, 2000, _currentDir.z);    
+        }
+        
+    }
+
+    private bool CanJump()
+    {
+        return false;
+    }
+    
 
     private void GetPlayerInput()
     {
         K_Input = moveInput.ReadValue<Vector2>().normalized;
         K_Input.z = K_Input.y;
         K_Input.y = 0;
-        print("Keyboard Direction: "+ K_Input);
+      //  print("Keyboard Direction: "+ K_Input);
 
         _mDelta = mouseInput.ReadValue<Vector2>();
-       // print("Mouse input: " + _mDelta);
+        _jumpValue = jumpInput.ReadValue<float>();
+        // print("Mouse input: " + _mDelta);
     }
 
     [SerializeField] private float WishDirAmplifier = 2;
     [SerializeField] private float M_WishDirAmplifier = 0.1f;
     [SerializeField] private float C_CurrentDirAmplifier = 1;
+    
+    
+    
    
     private void CalculatePlayerDirection()
     {
@@ -83,7 +124,9 @@ public class PlayerMovement : MonoBehaviour
         if (K_Input.magnitude != 0 && !isAir)
         {
             _currentDir = K_WishDir + _currentDir;
-            _currentDir = Vector3.ClampMagnitude(_currentDir, MaxSpeed);    
+            _currentDir = Vector3.ClampMagnitude(_currentDir, MaxSpeed);
+            
+            
             rb.linearVelocity = _currentDir;
         } else if (isAir)
         {
@@ -114,6 +157,8 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity /= 1.1f;
         }
     }
+    
+    
 
 
     private float _upperLookLimit = 60;
@@ -137,6 +182,7 @@ public class PlayerMovement : MonoBehaviour
 /* TODO
 - add ground detection via raycast
 - add jumping
+- add gravity
 - need ramp-up to max speed, instead of insta top speed
 - add slide
 - add walljumps

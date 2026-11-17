@@ -497,6 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c3897f628a90b04e8191f546657bac6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  isAir: 0
   moveInput:
     m_Name: Move Input
     m_Type: 0
@@ -561,6 +562,23 @@ MonoBehaviour:
       m_Processors: 
       m_Groups: 
       m_Action: Mouse Input
+      m_Flags: 0
+    m_Flags: 0
+  jumpInput:
+    m_Name: Jump Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 3c55a821-005f-44a1-b236-eabdb09603c6
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: fefc668e-4825-4cf4-a643-a9d992fea67f
+      m_Path: <Keyboard>/space
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Jump Input
       m_Flags: 0
     m_Flags: 0
   rb: {fileID: 0}
@@ -1389,7 +1407,7 @@ GameObject:
   - component: {fileID: 2130257592}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
