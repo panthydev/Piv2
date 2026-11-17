@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float acceleration = 1.5f;
     public float airAcceleration = 1.5f;
+    public float airResistance = 2;
     public float MaxSpeed = 10;
     private float MaxAirSpeed = 20;
 
@@ -57,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
+
     private void RunGroundDetection()
     {
         if (isAir)
@@ -68,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_jumpValue == 1)
         {
-            
+            rb.AddForce(transform.forward * 500);
         }
     }
 
@@ -116,12 +118,28 @@ public class PlayerMovement : MonoBehaviour
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
         }
-        else if (isAir && rb.linearVelocity.magnitude > 0.1) // air control / steering
+        else if (isAir) // air control / steering
         {
-            Vector3 wishDir = (K_WishDir + M_WishDir);
+
+            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
+            if (horizontalVelocity.sqrMagnitude > 0.01f)
+            {
+                Vector3 wishDir = M_WishDir * horizontalVelocity.magnitude;
+
+                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, maxAirVelocityChange);
+            }
             
-            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxAirVelocityChange);
-            rb.linearVelocity = newVelocityDir;
+            //always apply air resistance
+
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity,
+                Vector3.zero,
+                airResistance * Time.fixedDeltaTime);
+
+
+            rb.linearVelocity = new Vector3(horizontalVelocity.x,
+                rb.linearVelocity.y,
+                horizontalVelocity.z);
         }
         else
         {
@@ -129,15 +147,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
         }
-i
-        if (isAir)
-        {
-            Vector3 wishDir = new Vector3(0, rb.linearVelocity.y, 0);
-            
-            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, 2);
-            rb.linearVelocity = newVelocityDir; 
-        }
-        
     }
 
     private float _upperLookLimit = 60;
