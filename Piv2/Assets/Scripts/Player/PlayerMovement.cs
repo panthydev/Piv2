@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public bool isAir;
-    private Vector3 _gravityVector;
     private float _verticalAngle;
     private float _horizontalAngle = 0f;
 
@@ -20,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpValue;
 
 
+    public float gravityAcceleration = 9.8f;
     public float acceleration = 1.5f;
     public float airAcceleration = 1.5f;
     public float airResistance = 2;
@@ -34,8 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
-
-        _gravityVector = new Vector3(0, this.transform.up.y * -2, 0);
+        
 
         _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
         Cursor.visible = false;
@@ -70,9 +69,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_jumpValue == 1)
         {
-            rb.AddForce(transform.forward * 500);
+
+            Vector3 forwardJump = transform.forward + transform.up;
+            rb.AddForce(forwardJump * 500);
         }
     }
+
 
     private bool CanJump()
     {
@@ -111,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         K_WishDir *= WishDirAmplifier;
         M_WishDir *= M_WishDirAmplifier;
 
-
+        //ground movement
         if (K_Input.magnitude != 0 && !isAir)
         {
             Vector3 wishDir = K_WishDir * MaxSpeed;
@@ -123,13 +125,13 @@ public class PlayerMovement : MonoBehaviour
 
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
 
-            if (horizontalVelocity.sqrMagnitude > 0.01f)
+            if (horizontalVelocity.sqrMagnitude > 0.01f) // if i have momentum
             {
-                Vector3 wishDir = M_WishDir * horizontalVelocity.magnitude;
+                Vector3 wishDir = M_WishDir * horizontalVelocity.magnitude; // calc wish dir with same magnitude as current dir
 
-                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, maxAirVelocityChange);
+                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, maxAirVelocityChange); // move currDir towards wishDir
             }
-            
+            HandleGravity();
             //always apply air resistance
 
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity,
@@ -147,8 +149,20 @@ public class PlayerMovement : MonoBehaviour
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
         }
+        
+        
+        
+        
+        
+        
     }
 
+    private void HandleGravity()
+    {
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y - gravityAcceleration * Time.fixedDeltaTime, rb.linearVelocity.z);
+    }
+    
+    
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
 
