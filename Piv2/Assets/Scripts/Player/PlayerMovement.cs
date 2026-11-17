@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
 
-        _gravityVector = new Vector3(0, this.transform.up.y * -9, 0);
+        _gravityVector = new Vector3(0, this.transform.up.y * -2, 0);
 
         _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
         Cursor.visible = false;
@@ -125,13 +125,14 @@ public class PlayerMovement : MonoBehaviour
         {
             _currentDir = K_WishDir + _currentDir;
             _currentDir = Vector3.ClampMagnitude(_currentDir, MaxSpeed);
-            
-            
+
+            _currentDir += _gravityVector;
             rb.linearVelocity = _currentDir;
         } else if (isAir)
         {
             _currentDir = K_WishDir + M_WishDir + _currentDir;
-            _currentDir = Vector3.ClampMagnitude(_currentDir, MaxAirSpeed);    
+            _currentDir = Vector3.ClampMagnitude(_currentDir, MaxAirSpeed);
+            _currentDir += _gravityVector;
             rb.linearVelocity = _currentDir;
             //should prolly slow down as well ?
         }
@@ -155,6 +156,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             rb.linearVelocity /= 1.1f;
+            rb.linearVelocity += _gravityVector;
         }
     }
     
