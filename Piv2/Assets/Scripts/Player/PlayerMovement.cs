@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public float airAcceleration = 1.5f;
     public float airResistance = 2;
     public float MaxSpeed = 10;
-    private float MaxAirSpeed = 20;
+    public float MaxAirSpeed = 20;
 
     public Rigidbody rb;
 
@@ -90,15 +90,12 @@ public class PlayerMovement : MonoBehaviour
             
             
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-            Vector3 verticalVelocity = new Vector3(0, rb.linearVelocity.y, 0);
             
-            Vector3 wishDir = horizontalVelocity;
 
-            float ForwardBoostAmount = horizontalVelocity.magnitude * 0.6f;
+            Vector3 ForwardBoost = horizontalVelocity.normalized * jumpForceForward;
             
-            Vector3 jumpVector = new Vector3(horizontalVelocity.x *0.6f, jumpForceUp, horizontalVelocity.z * 0.6f);
 
-            rb.linearVelocity += jumpVector;
+            rb.linearVelocity += new Vector3(ForwardBoost.x, jumpForceUp, ForwardBoost.z);
 
 
             //rb.AddForce(transform.up * 500);
@@ -145,6 +142,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float maxGroundVelocityChange = acceleration * Time.fixedDeltaTime;
         float maxAirVelocityChange = airAcceleration * Time.fixedDeltaTime; // for DE-accelerating usually.
+        
+        
+        
         M_WishDir = _mainCamera.transform.forward;
         M_WishDir.y = 0;
         
@@ -157,8 +157,8 @@ public class PlayerMovement : MonoBehaviour
         K_WishDir = right + forward;
 
         //scalar ts
-        K_WishDir *= WishDirAmplifier;
-        M_WishDir *= M_WishDirAmplifier;
+      //  K_WishDir *= WishDirAmplifier;
+     //   M_WishDir *= M_WishDirAmplifier;
 
         //ground movement
         if (K_Input.magnitude != 0 && !isAir)
@@ -173,15 +173,23 @@ public class PlayerMovement : MonoBehaviour
         {
 
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+
             
 
             if (horizontalVelocity.sqrMagnitude > 0.01f) // if i have momentum
             {
-                Vector3 wishDir = M_WishDir * horizontalVelocity.magnitude; // calc wish dir with same magnitude as current dir
+                float speed = horizontalVelocity.magnitude;
 
-              //  horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, maxAirVelocityChange); // move currDir towards wishDir
-              horizontalVelocity = Vector3.RotateTowards(horizontalVelocity, wishDir * MaxAirSpeed,
-                  airAcceleration * Time.fixedDeltaTime, 0);
+                float speedFactor = Mathf.InverseLerp(0f, MaxAirSpeed, speed);
+                float steeringAmount = airAcceleration * speedFactor * Time.fixedDeltaTime;
+                
+                
+                Vector3 wishDir = M_WishDir * speed; // calc wish dir with same magnitude as current dir
+                
+                
+               horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, steeringAmount); // move currDir towards wishDir
+            //  horizontalVelocity = Vector3.RotateTowards(horizontalVelocity, wishDir * MaxAirSpeed,
+              //    airAcceleration * Time.fixedDeltaTime, 0);
 
             }
             HandleGravity(); // maybe we want different gravity acceleration in diff situations ? :3

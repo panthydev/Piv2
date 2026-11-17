@@ -3791,7 +3791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   isAir: 1
   jumpForceUp: 10
-  jumpForceForward: 2
+  jumpForceForward: 20
   moveInput:
     m_Name: Move Input
     m_Type: 0
@@ -3877,9 +3877,10 @@ MonoBehaviour:
     m_Flags: 0
   gravityAcceleration: 29.4
   acceleration: 30
-  airAcceleration: 200
+  airAcceleration: 20
   airResistance: 1
   MaxSpeed: 10
+  MaxAirSpeed: 3
   rb: {fileID: 0}
   jumpCoolDownTimer: 1
   jumpCoolDownTimerResetValue: 1
