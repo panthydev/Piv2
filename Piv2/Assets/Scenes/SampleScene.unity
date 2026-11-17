@@ -473,10 +473,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1369618349}
+  - component: {fileID: 1369618345}
   - component: {fileID: 1369618348}
   - component: {fileID: 1369618347}
   - component: {fileID: 1369618346}
-  - component: {fileID: 1369618345}
   - component: {fileID: 1369618350}
   m_Layer: 0
   m_Name: Player
@@ -581,6 +581,7 @@ MonoBehaviour:
       m_Action: Jump Input
       m_Flags: 0
     m_Flags: 0
+  acceleration: 20
   rb: {fileID: 0}
   WishDirAmplifier: 2
   M_WishDirAmplifier: 2
@@ -704,7 +705,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

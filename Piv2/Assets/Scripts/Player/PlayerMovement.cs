@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private float _jumpValue;
 
 
+    public float acceleration = 1.5f;
     private float MaxSpeed = 10;
     private float MaxAirSpeed = 20;
 
@@ -101,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
    
     private void CalculatePlayerDirection()
     {
+        float maxVelocityChange = acceleration * Time.fixedDeltaTime;
         //new direction is the result of the current direction and the inputDirection and the look direction
         //keep current direction as a stored variable, NOT rb direction
         
@@ -120,14 +122,21 @@ public class PlayerMovement : MonoBehaviour
         M_WishDir *= M_WishDirAmplifier;
         _currentDir *= C_CurrentDirAmplifier;
 
+
+      
         
         if (K_Input.magnitude != 0 && !isAir)
         {
-            _currentDir = K_WishDir + _currentDir;
-            _currentDir = Vector3.ClampMagnitude(_currentDir, MaxSpeed);
+            
+            Vector3 wishDir = K_WishDir * MaxSpeed;
+            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxVelocityChange);
+            rb.linearVelocity = newVelocityDir;
+            
+            //_currentDir = K_WishDir + _currentDir;
+            //_currentDir = Vector3.ClampMagnitude(_currentDir, MaxSpeed);
 
-            _currentDir += _gravityVector;
-            rb.linearVelocity = _currentDir;
+            //_currentDir += _gravityVector;
+            //rb.linearVelocity = _currentDir;
         } else if (isAir)
         {
             _currentDir = K_WishDir + M_WishDir + _currentDir;
@@ -138,7 +147,9 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            DeAccelerate();
+            Vector3 wishDir = K_WishDir * MaxSpeed;
+            Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxVelocityChange);
+            rb.linearVelocity = newVelocityDir;
         }
 
         
@@ -146,22 +157,6 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
-
-    private void DeAccelerate()
-    {
-        if (rb.linearVelocity.magnitude < 0.1f)
-        {
-            rb.linearVelocity = new Vector3(0, 0, 0);
-        }
-        else
-        {
-            rb.linearVelocity /= 1.1f;
-            rb.linearVelocity += _gravityVector;
-        }
-    }
-    
-    
-
 
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
