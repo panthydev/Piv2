@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="318cb1c5-2d2d-47d2-82ad-6f09233627c1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,7 +134,7 @@
       <workItem from="1794228053522" duration="7000" />
       <workItem from="1794228333501" duration="4191000" />
       <workItem from="1794851708450" duration="11900000" />
-      <workItem from="1794924864333" duration="13500000" />
+      <workItem from="1794924864333" duration="19466000" />
     </task>
     <servers />
   </component>
@@ -164,6 +167,32 @@
           <properties exception="System.Threading.ThreadAbortException" breakIfHandledByOtherCode="false" displayValue="System.Threading.ThreadAbortException" />
           <option name="timeStamp" value="3" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs</url>
+          <line>111</line>
+          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Player\PlayerMovement.cs" containingFunctionPresentation="Method 'CheckIsAir'">
+            <startOffsets>
+              <option value="2817" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2868" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs</url>
+          <line>112</line>
+          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Player\PlayerMovement.cs" containingFunctionPresentation="Method 'CheckIsAir'">
+            <startOffsets>
+              <option value="2881" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2919" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
