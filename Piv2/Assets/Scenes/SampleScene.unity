@@ -3792,6 +3792,9 @@ MonoBehaviour:
   isAir: 1
   jumpForceUp: 10
   jumpForceForward: 20
+  SlideVelocityControl: 5
+  LandingBoost: 1.2
+  SlideMinSpeedThreshold: 15
   moveInput:
     m_Name: Move Input
     m_Type: 0
@@ -3875,15 +3878,34 @@ MonoBehaviour:
       m_Action: Jump Input
       m_Flags: 0
     m_Flags: 0
+  slideInput:
+    m_Name: Slide Input
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: f2d82c31-ac2c-4603-82d2-bf349c66aecd
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: ea91b5d2-ba96-44bc-a0cb-072254d02539
+      m_Path: <Keyboard>/c
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Slide Input
+      m_Flags: 0
+    m_Flags: 0
   gravityAcceleration: 29.4
   acceleration: 30
-  airAcceleration: 20
+  airAcceleration: 60
   airResistance: 1
   MaxSpeed: 10
-  MaxAirSpeed: 3
+  MaxAirSpeed: 1
+  maxSlideSpeed: 20
   rb: {fileID: 0}
   jumpCoolDownTimer: 1
   jumpCoolDownTimerResetValue: 1
+  JustHitGround: 0
   WishDirAmplifier: 2
   M_WishDirAmplifier: 1
 --- !u!136 &1369618346

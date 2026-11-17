@@ -13,16 +13,20 @@ public class PlayerMovement : MonoBehaviour
     private float _horizontalAngle = 0f;
     public float jumpForceUp = 10;
     public float jumpForceForward = 4f;
-
+    public float SlideVelocityControl = 1f;
+    public float LandingBoost = 5;
+    public float SlideMinSpeedThreshold;
     public InputAction moveInput;
     public InputAction mouseInput;
     public InputAction jumpInput;
+    public InputAction slideInput;
     private Vector3 K_Input;
     private Vector3 K_WishDir;
     private Vector3 M_WishDir;
     private Vector3 _currentDir;
     private Vector2 _mDelta;
     private float _jumpValue;
+    private float _slideValue;
 
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
@@ -33,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public float airResistance = 2;
     public float MaxSpeed = 10;
     public float MaxAirSpeed = 20;
+    public float maxSlideSpeed = 20;
 
     public Rigidbody rb;
 
@@ -50,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
         moveInput.Enable();
         mouseInput.Enable();
         jumpInput.Enable();
+        slideInput.Enable();
     }
 
     private void Update()
@@ -60,27 +66,49 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CheckIsAir();
+        HandleSlide();
         HandleJump();
         CalculatePlayerDirection();
     }
 
 
-
-    private void RunGroundDetection()
+    private bool _isSliding;
+    private void HandleSlide()
     {
-        if (isAir)
+        if (_slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround))
         {
+            if (JustHitGround)
+            {
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x * LandingBoost, rb.linearVelocity.y, // maybe give boost always, ? and not just from fall
+                    rb.linearVelocity.z);  
+            }
+            
+            _isSliding = true;
+            JustHitGround = false;
+            //Vector3 newScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
+            //transform.localScale = newScale;
+            
+            
+            
+        }
+        else
+        {
+            _isSliding = false;
+            Vector3 newScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
+            transform.localScale = newScale;
         }
     }
 
     public float jumpCoolDownTimer = 1f;
     public float jumpCoolDownTimerResetValue = 1f;
+    public bool JustHitGround;
 
     private void HandleJump()
     {
         jumpCoolDownTimer -= Time.fixedDeltaTime;
         
-        CheckIsAir();
+        
         if (_jumpValue == 1 && !isAir)
         {
             jumpCoolDownTimer = jumpCoolDownTimerResetValue;
@@ -104,12 +132,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckIsAir()
     {
-        if (Physics.Raycast(transform.position, transform.up*-1, out var hit, 1))
+        if (Physics.Raycast(transform.position, transform.up*-1.01f, out var hit, 1))
         {
             Debug.DrawRay(transform.position, transform.up*-1);
             if (hit.collider.CompareTag("Ground"))
             {
-                isAir = false;
+                isAir = false; // hit ground
+                JustHitGround = true;
             }
             else
             {
@@ -132,6 +161,7 @@ public class PlayerMovement : MonoBehaviour
 
         _mDelta = mouseInput.ReadValue<Vector2>();
         _jumpValue = jumpInput.ReadValue<float>();
+        _slideValue = slideInput.ReadValue<float>();
     }
 
     [SerializeField] private float WishDirAmplifier = 2;
@@ -156,16 +186,17 @@ public class PlayerMovement : MonoBehaviour
 
         K_WishDir = right + forward;
 
-        //scalar ts
-      //  K_WishDir *= WishDirAmplifier;
-     //   M_WishDir *= M_WishDirAmplifier;
-
         //ground movement
         if (K_Input.magnitude != 0 && !isAir)
         {
+            float targetMaxSpeed = MaxSpeed;
+            if (_isSliding)
+            {
+                maxGroundVelocityChange *= SlideVelocityControl;
+                targetMaxSpeed = maxSlideSpeed;
+            }
             
-            
-            Vector3 wishDir = new Vector3(K_WishDir.x * MaxSpeed, rb.linearVelocity.y, K_WishDir.z * MaxSpeed);
+            Vector3 wishDir = new Vector3(K_WishDir.x * targetMaxSpeed, rb.linearVelocity.y, K_WishDir.z * targetMaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
         }
@@ -245,11 +276,10 @@ public class PlayerMovement : MonoBehaviour
 }
 /* TODO
 - add ground detection via raycast
-- add jumping
-- add gravity
-- need ramp-up to max speed, instead of insta top speed
-- add slide
+- tune air steering, slide speed (so its it can retain the FASTEST speed IE above air speed), tune all the other stuff
 - add walljumps
 - add wall hold/grab (optional)
 - maybe fix animations ?
+- add picking up and throwing objects.
+- add a method called 
 */
