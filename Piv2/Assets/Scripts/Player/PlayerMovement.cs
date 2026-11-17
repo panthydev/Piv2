@@ -176,15 +176,15 @@ public class PlayerMovement : MonoBehaviour
 
             
 
-            if (horizontalVelocity.sqrMagnitude > 0.01f) // if i have momentum
+            if (horizontalVelocity.sqrMagnitude > 0.01f && K_Input.magnitude > 0) // if i have momentum
             {
                 float speed = horizontalVelocity.magnitude;
 
                 float speedFactor = Mathf.InverseLerp(0f, MaxAirSpeed, speed);
                 float steeringAmount = airAcceleration * speedFactor * Time.fixedDeltaTime;
-                
-                
-                Vector3 wishDir = M_WishDir * speed; // calc wish dir with same magnitude as current dir
+
+                Vector3 wishDir = K_WishDir.normalized * speed;
+                //Vector3 wishDir = M_WishDir * speed; // calc wish dir with same magnitude as current dir
                 
                 
                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, steeringAmount); // move currDir towards wishDir
