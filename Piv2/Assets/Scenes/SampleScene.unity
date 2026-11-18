@@ -3791,7 +3791,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   isAir: 1
   jumpForceUp: 10
-  jumpForceForward: 20
+  jumpForceForward: 10
   SlideVelocityControl: 5
   LandingBoost: 1.2
   SlideMinSpeedThreshold: 15
