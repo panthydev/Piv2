@@ -9,7 +9,9 @@ public class ObjectGrabber : MonoBehaviour
 {
 
     public InputAction pickupAction;
+    public InputAction throwAction;
     private float _pickupActionValue;
+    private float _throwActionValue;
     public Interactable closestInteractable;
     public Interactable heldInteractable;
     public bool isInteractableHeld;
@@ -21,11 +23,14 @@ public class ObjectGrabber : MonoBehaviour
     private void Awake()
     {
         pickupAction.Enable();
+        throwAction.Enable();
     }
 
     private void GetInput()
     {
         _pickupActionValue = pickupAction.ReadValue<float>();
+        _throwActionValue = throwAction.ReadValue<float>();
+
     }
 
     private void Update()
@@ -51,6 +56,13 @@ public class ObjectGrabber : MonoBehaviour
         if (isInteractableHeld)
         {
             PinObjectHeightToCamera();
+        }
+
+        if (_throwActionValue > 0 && isInteractableHeld)
+        {
+            DropInteractable(true);
+            print(_throwActionValue);
+            
         }
         
     }
@@ -86,15 +98,26 @@ public class ObjectGrabber : MonoBehaviour
         else
         {
             //Drop
-            heldInteractable.transform.SetParent(null, true);
-            
-            Rigidbody rb = heldInteractable.GetComponent<Rigidbody>();
-            rb.constraints = RigidbodyConstraints.None;
-            rb.isKinematic = false;
-
-            heldInteractable = null;
-            isInteractableHeld = false;
+            DropInteractable();
         }
+    }
+
+    private void DropInteractable(bool throwItem = false)
+    {
+        heldInteractable.transform.SetParent(null, true);
+            
+        Rigidbody rb = heldInteractable.GetComponent<Rigidbody>();
+        rb.constraints = RigidbodyConstraints.None;
+        rb.isKinematic = false;
+
+        if (throwItem)
+        {
+            heldInteractable.ThrowObject(Camera.main.transform.forward, 15);
+        }
+        heldInteractable = null;
+        isInteractableHeld = false;
+        
+        
     }
 
 

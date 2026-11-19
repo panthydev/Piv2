@@ -4175,7 +4175,25 @@ MonoBehaviour:
       m_Action: Pickup
       m_Flags: 0
     m_Flags: 0
+  throwAction:
+    m_Name: Throw
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5f1668d1-7deb-4ab4-8c88-9dfeb14cb513
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 30f5af3e-cb73-40dd-ab46-263b8b3375fa
+      m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Throw
+      m_Flags: 0
+    m_Flags: 0
   closestInteractable: {fileID: 0}
+  heldInteractable: {fileID: 0}
   isInteractableHeld: 0
   ObjHoldingTransform: {fileID: 1280579523}
   objPickupCooldownTimer: 0.2
