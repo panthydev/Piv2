@@ -4382,6 +4382,7 @@ GameObject:
   - component: {fileID: 1462423647}
   - component: {fileID: 1462423646}
   - component: {fileID: 1462423651}
+  - component: {fileID: 1462423652}
   m_Layer: 0
   m_Name: Cube_1
   m_TagString: Untagged
@@ -4523,6 +4524,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1462423652
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462423645}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1465023513
 GameObject:
   m_ObjectHideFlags: 0
@@ -4649,6 +4671,7 @@ GameObject:
   - component: {fileID: 1473656932}
   - component: {fileID: 1473656931}
   - component: {fileID: 1473656936}
+  - component: {fileID: 1473656937}
   m_Layer: 0
   m_Name: Cube_2
   m_TagString: Untagged
@@ -4790,6 +4813,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1473656937
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473656930}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1478879777
 GameObject:
   m_ObjectHideFlags: 0
@@ -5291,6 +5335,7 @@ GameObject:
   - component: {fileID: 1829723085}
   - component: {fileID: 1829723084}
   - component: {fileID: 1829723089}
+  - component: {fileID: 1829723090}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -5432,6 +5477,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!135 &1829723090
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829723083}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1881275825
 GameObject:
   m_ObjectHideFlags: 0

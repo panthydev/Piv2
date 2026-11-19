@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(SphereCollider))]
 public class Interactable : MonoBehaviour
 {
     [SerializeField] private float defaultThrowForce;
@@ -14,6 +15,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private float YOffset = 1.5f;
     private void Awake()
     {
+        GetComponent<SphereCollider>().radius = transform.localScale.magnitude;
         rb = GetComponent<Rigidbody>();
         CreateWorldSpaceCanvas();        
     }
@@ -67,6 +69,5 @@ public class Interactable : MonoBehaviour
     {
         canvas.gameObject.SetActive(b);
         TextObj.gameObject.SetActive(b);
-        
     }
 }
