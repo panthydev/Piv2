@@ -57,6 +57,14 @@ public class ObjectGrabber : MonoBehaviour
     }
 
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Interactable"))
+        {
+            print("interactable range entered");
+        }        
+    }
+
     private List<Interactable> CheckForInteractables()
     {
         var hitColliders = Physics.OverlapSphere(transform.position, interactRadius);

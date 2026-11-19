@@ -73,15 +73,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    private bool _isSliding;
+    public bool _isSliding;
     private void HandleSlide()
     {
         if (_slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround))
         {
             if (JustHitGround)
             {
+                print("Gave speed bost");
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x * LandingBoost, rb.linearVelocity.y, // maybe give boost always, ? and not just from fall
-                    rb.linearVelocity.z);  
+                    rb.linearVelocity.z * LandingBoost);
+                JustHitGround = false; // not working rn
             }
             
             _isSliding = true;
@@ -137,8 +139,11 @@ public class PlayerMovement : MonoBehaviour
             Debug.DrawRay(transform.position, transform.up*-1);
             if (hit.collider.CompareTag("Ground"))
             {
+                if (isAir)
+                {
+                    JustHitGround = true;
+                }
                 isAir = false; // hit ground
-                JustHitGround = true;
             }
             else
             {

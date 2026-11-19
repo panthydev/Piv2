@@ -15,9 +15,17 @@ public class Interactable : MonoBehaviour
     [SerializeField] private float YOffset = 1.5f;
     private void Awake()
     {
-        GetComponent<SphereCollider>().radius = transform.localScale.magnitude;
+        SetupInteractable();
         rb = GetComponent<Rigidbody>();
         CreateWorldSpaceCanvas();        
+    }
+
+    private void SetupInteractable()
+    {
+        var col = GetComponent<SphereCollider>();
+        col.radius = transform.localScale.magnitude;
+        col.isTrigger = true;
+        transform.tag = "Interactable";
     }
 
     private void CreateWorldSpaceCanvas()
