@@ -59,6 +59,14 @@ public class PlayerMovement : MonoBehaviour
         mouseInput.Enable();
         jumpInput.Enable();
         slideInput.Enable();
+        
+        
+        
+            playerCollider.height = 2f;
+            playerCollider.center = new Vector3(
+                playerCollider.center.x, 0f, playerCollider.center.z);
+        
+        
     }
 
     private void Update()
@@ -81,32 +89,41 @@ public class PlayerMovement : MonoBehaviour
     {
         bool shouldSlide = _slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround);
         
-        if (_slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround))
+        if (shouldSlide && JustHitGround)
         {
-            if (JustHitGround)
-            {
                 print("Gave speed bost");
+                
                 rb.linearVelocity = new Vector3(rb.linearVelocity.x * LandingBoost, rb.linearVelocity.y, // maybe give boost always, ? and not just from fall
                     rb.linearVelocity.z * LandingBoost);
-                JustHitGround = false; // not working rn
-            }
+                
             
-            _isSliding = true;
-            JustHitGround = false;
+                JustHitGround = false;
             
-            
-            playerCollider.height = 1f;
-            playerCollider.center = new Vector3(playerCollider.center.x, -0.5f, playerCollider.center.z);
-            Debug.Log($"Bottom: resizing");
-
         }
-        else
+
+        if (shouldSlide != _isSliding)
         {
-            _isSliding = false;
-            
-            
-            playerCollider.height = 2;
-            playerCollider.center = new Vector3(playerCollider.center.x, 0, playerCollider.center.z);
+            _isSliding = shouldSlide;
+
+            if (_isSliding)
+            {
+                playerCollider.height = 1.5f;
+                playerCollider.center = new Vector3(playerCollider.center.x, -0.25f, playerCollider.center.z);
+                Debug.Log($"Bottom: resizing");
+
+                Transform camTrans = _mainCamera.GetComponent<Transform>();
+                camTrans.transform.localPosition = new Vector3(camTrans.transform.localPosition.x,
+                    camTrans.transform.localPosition.y - 0.5f, camTrans.transform.localPosition.z);
+            }
+            else
+            {
+                
+                Transform camTrans = _mainCamera.GetComponent<Transform>();
+                camTrans.transform.localPosition = new Vector3(camTrans.transform.localPosition.x,
+                    camTrans.transform.localPosition.y + 0.5f, camTrans.transform.localPosition.z);
+                playerCollider.height = 2;
+                playerCollider.center = new Vector3(playerCollider.center.x, 0, playerCollider.center.z);
+            }
         }
     }
 
