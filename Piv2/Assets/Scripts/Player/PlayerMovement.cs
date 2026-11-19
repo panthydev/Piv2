@@ -38,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public float MaxSpeed = 10;
     public float MaxAirSpeed = 20;
     public float maxSlideSpeed = 20;
+    public float tempSlideSpeed = 0;
 
     public Rigidbody rb;
 
@@ -195,11 +196,20 @@ public class PlayerMovement : MonoBehaviour
         if (K_Input.magnitude != 0 && !isAir)
         {
             float targetMaxSpeed = MaxSpeed;
+            
+            
+            if (!_isSliding)
+            {
+                tempSlideSpeed = maxSlideSpeed;
+            }
             if (_isSliding)
             {
                 maxGroundVelocityChange *= SlideVelocityControl;
-                targetMaxSpeed = maxSlideSpeed;
+                
+                tempSlideSpeed = Mathf.Lerp(tempSlideSpeed, MaxSpeed, 0.01f);
+                targetMaxSpeed = tempSlideSpeed;
             }
+           
             
             Vector3 wishDir = new Vector3(K_WishDir.x * targetMaxSpeed, rb.linearVelocity.y, K_WishDir.z * targetMaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);

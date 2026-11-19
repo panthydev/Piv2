@@ -3981,8 +3981,9 @@ MonoBehaviour:
   airResistance: 1
   MaxSpeed: 10
   MaxAirSpeed: 1
-  maxSlideSpeed: 20
+  maxSlideSpeed: 30
   rb: {fileID: 0}
+  _isSliding: 0
   jumpCoolDownTimer: 1
   jumpCoolDownTimerResetValue: 1
   JustHitGround: 0
