@@ -199,7 +199,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 wishDir = new Vector3(K_WishDir.x * targetMaxSpeed, rb.linearVelocity.y, K_WishDir.z * targetMaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
-            HandleGravity();
+           // HandleGravity();
         }
         else if (isAir) // air control / steering
         {
@@ -224,7 +224,7 @@ public class PlayerMovement : MonoBehaviour
               //    airAcceleration * Time.fixedDeltaTime, 0);
 
             }
-            HandleGravity(); // maybe we want different gravity acceleration in diff situations ? :3
+           // HandleGravity(); // maybe we want different gravity acceleration in diff situations ? :3
             //always apply air resistance
 
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity,
@@ -242,7 +242,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 wishDir = new Vector3(K_WishDir.x * MaxSpeed, rb.linearVelocity.y, K_WishDir.z * MaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
-            HandleGravity();
+            
         }
         
         HandleGravity();
