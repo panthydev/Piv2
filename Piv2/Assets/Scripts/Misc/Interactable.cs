@@ -9,6 +9,7 @@ public class Interactable : MonoBehaviour
     [SerializeField] private float defaultThrowForce;
     private Rigidbody rb;
     private Canvas canvas;
+    private GameObject TextObj;
     private GameObject canvasObjectHolder;
     [SerializeField] private float YOffset = 1.5f;
     private void Awake()
@@ -37,7 +38,7 @@ public class Interactable : MonoBehaviour
         canvasObjectHolder.transform.position = newPosistion; 
 
         //resize text obj so it looks nice and isnt huge
-       var TextObj = new GameObject("Text object", new []{typeof(RectTransform), typeof(TextMeshProUGUI), typeof(CanvasRenderer)});
+       TextObj = new GameObject("Text object", new []{typeof(RectTransform), typeof(TextMeshProUGUI), typeof(CanvasRenderer)});
        TextObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
        TextObj.transform.position = canvasObjectHolder.transform.position;
        TextObj.transform.SetParent(canvasObjectHolder.transform);
@@ -54,11 +55,18 @@ public class Interactable : MonoBehaviour
         TextObj.SetActive(false);
     }
 
-    private void ThrowObject(Vector3 direction, float throwForce = 0)
+    public void ThrowObject(Vector3 direction, float throwForce = 0)
     {
         if (throwForce == 0) throwForce = defaultThrowForce;
         
         rb.AddForce(direction * throwForce, ForceMode.Impulse);
 
-    } 
+    }
+
+    public void SetTextActive(bool b)
+    {
+        canvas.gameObject.SetActive(b);
+        TextObj.gameObject.SetActive(b);
+        
+    }
 }

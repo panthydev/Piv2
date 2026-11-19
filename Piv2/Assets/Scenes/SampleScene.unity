@@ -3849,6 +3849,7 @@ GameObject:
   - component: {fileID: 1369618347}
   - component: {fileID: 1369618346}
   - component: {fileID: 1369618350}
+  - component: {fileID: 1369618351}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -4076,7 +4077,7 @@ Transform:
   m_GameObject: {fileID: 1369618343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1.615, z: 1}
+  m_LocalPosition: {x: 1, y: 1.615, z: 3.42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4111,6 +4112,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &1369618351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1369618343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92c9b26de0d8b44e9f6aedbde556475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectGrabber
+  pickupAction:
+    m_Name: Pickup
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 654efeb7-f97b-4f9c-9d52-52207cd9ddb4
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 97dc253a-83a1-4610-8f01-1252b5467364
+      m_Path: <Keyboard>/e
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Pickup
+      m_Flags: 0
+    m_Flags: 0
+  interactRadius: 200
+  objPickupCooldownTimer: 0.05
+  objPickupCooldownTimerReset: 0.05
 --- !u!1 &1373975084
 GameObject:
   m_ObjectHideFlags: 0
@@ -4348,6 +4381,7 @@ GameObject:
   - component: {fileID: 1462423648}
   - component: {fileID: 1462423647}
   - component: {fileID: 1462423646}
+  - component: {fileID: 1462423651}
   m_Layer: 0
   m_Name: Cube_1
   m_TagString: Untagged
@@ -4462,6 +4496,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1462423651
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1462423645}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1465023513
 GameObject:
   m_ObjectHideFlags: 0
@@ -4587,6 +4648,7 @@ GameObject:
   - component: {fileID: 1473656933}
   - component: {fileID: 1473656932}
   - component: {fileID: 1473656931}
+  - component: {fileID: 1473656936}
   m_Layer: 0
   m_Name: Cube_2
   m_TagString: Untagged
@@ -4701,6 +4763,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -21.893, y: 0, z: 32.893}
+--- !u!54 &1473656936
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473656930}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1478879777
 GameObject:
   m_ObjectHideFlags: 0
@@ -5201,6 +5290,7 @@ GameObject:
   - component: {fileID: 1829723086}
   - component: {fileID: 1829723085}
   - component: {fileID: 1829723084}
+  - component: {fileID: 1829723089}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -5315,6 +5405,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1829723089
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829723083}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1881275825
 GameObject:
   m_ObjectHideFlags: 0

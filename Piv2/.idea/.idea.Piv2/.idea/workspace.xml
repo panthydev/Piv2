@@ -38,6 +38,7 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/8f33e5928460498a832cccfcf0920f172b400/0e/f29205cb/Physics.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/dc764b59c049482b93bebc78a7e33a04212600/8b/dbbdb336/Mathf.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Misc/Interactable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Player/ObjectGrabber.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@37e0d4fc2503/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
@@ -134,7 +135,7 @@
       <workItem from="1794228333501" duration="4191000" />
       <workItem from="1794851708450" duration="11900000" />
       <workItem from="1794924864333" duration="26135000" />
-      <workItem from="1795011811209" duration="5909000" />
+      <workItem from="1795011811209" duration="9754000" />
     </task>
     <servers />
   </component>
@@ -194,17 +195,43 @@
           <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/Misc/Interactable.cs</url>
-          <line>39</line>
-          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Misc\Interactable.cs" containingFunctionPresentation="Method 'CreateWorldSpaceCanvas'">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/ObjectGrabber.cs</url>
+          <line>38</line>
+          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Player\ObjectGrabber.cs" containingFunctionPresentation="Method 'handleInteraction'">
             <startOffsets>
-              <option value="1303" />
+              <option value="806" />
             </startOffsets>
             <endOffsets>
-              <option value="1427" />
+              <option value="807" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/ObjectGrabber.cs</url>
+          <line>39</line>
+          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Player\ObjectGrabber.cs" containingFunctionPresentation="Method 'handleInteraction'">
+            <startOffsets>
+              <option value="816" />
+            </startOffsets>
+            <endOffsets>
+              <option value="857" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/Player/ObjectGrabber.cs</url>
+          <line>40</line>
+          <properties documentPath="C:\Users\adamc\Desktop\Gamedev\Piv2\Piv2\Assets\Scripts\Player\ObjectGrabber.cs" containingFunctionPresentation="Method 'handleInteraction'">
+            <startOffsets>
+              <option value="866" />
+            </startOffsets>
+            <endOffsets>
+              <option value="913" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
