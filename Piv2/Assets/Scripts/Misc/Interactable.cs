@@ -17,13 +17,14 @@ public class Interactable : MonoBehaviour
     {
         SetupInteractable();
         rb = GetComponent<Rigidbody>();
+        rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         CreateWorldSpaceCanvas();        
     }
 
     private void SetupInteractable()
     {
         var col = GetComponent<SphereCollider>();
-        col.radius = 1.5f;
+        col.radius = 1.6f;
         col.isTrigger = true;
         transform.tag = "Interactable";
     }

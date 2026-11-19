@@ -292,9 +292,8 @@ public class PlayerMovement : MonoBehaviour
     }
 }
 /* TODO
-- add ground detection via raycast
-- tune air steering, slide speed (so its it can retain the FASTEST speed IE above air speed), tune all the other stuff
 - add walljumps
 - add wall hold/grab (optional)
 - maybe fix animations ?
+- fix object pickup / set objHolder to be at object origin, THEN parent object to objHolder. move/rotate objHolder up/down with mouse 
 */

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class ObjectGrabber : MonoBehaviour
 {
-
+    private Collider playerCollider;
     public InputAction pickupAction;
     public InputAction throwAction;
     private float _pickupActionValue;
@@ -22,6 +22,7 @@ public class ObjectGrabber : MonoBehaviour
 
     private void Awake()
     {
+        playerCollider = GetComponent<Collider>();
         pickupAction.Enable();
         throwAction.Enable();
     }
@@ -93,6 +94,11 @@ public class ObjectGrabber : MonoBehaviour
                              RigidbodyConstraints.FreezePositionZ |
                              RigidbodyConstraints.FreezeRotation;
             rb.isKinematic = true;
+
+            //disable collisions between player and object
+            Collider objectCollider = heldInteractable.GetComponent<Collider>();
+            Physics.IgnoreCollision(playerCollider, objectCollider);
+            
             isInteractableHeld = true;
         }
         else
@@ -109,6 +115,9 @@ public class ObjectGrabber : MonoBehaviour
         Rigidbody rb = heldInteractable.GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.None;
         rb.isKinematic = false;
+        //enable collisions again between player and object
+        Collider objectCollider = heldInteractable.GetComponent<Collider>();
+        Physics.IgnoreCollision(playerCollider, objectCollider);
 
         if (throwItem)
         {
