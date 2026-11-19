@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,8 +10,11 @@ public class ObjectGrabber : MonoBehaviour
 
     public InputAction pickupAction;
     private float _pickupActionValue;
+    public Interactable closestInteractable;
+    public Interactable heldInteractable;
+    public bool isInteractableHeld;
 
-    public float interactRadius = 2;
+    public Transform ObjHoldingTransform;
     public float objPickupCooldownTimer = 0.05f;
     public float objPickupCooldownTimerReset = 0.05f;
 
@@ -28,71 +32,93 @@ public class ObjectGrabber : MonoBehaviour
     {
         GetInput();
     }
-
-    private List<Interactable> OldInteractables = new List<Interactable>();
+    
     private void FixedUpdate()
     {
+        objPickupCooldownTimer -= Time.deltaTime;
         handleInteraction();
     }
 
     private void handleInteraction()
     {
-        objPickupCooldownTimer -= Time.deltaTime;
-        var newInteractables = CheckForInteractables();
-        
-        if (newInteractables.Count == 0)return; // return gate
-        
-        foreach (var interactable in this.OldInteractables)
+        if (_pickupActionValue > 0 && objPickupCooldownTimer < 0)
         {
-            if(!newInteractables.Contains(interactable)) {interactable.SetTextActive(false);}  // if interable is now outside range
+            
+            objPickupCooldownTimer = objPickupCooldownTimerReset;
+            PickupInteractable();
         }
 
-        foreach (var newInteractable in newInteractables)
+        if (isInteractableHeld)
         {
-            newInteractable.SetTextActive(true);
+            PinObjectHeightToCamera();
         }
+        
+    }
 
-        PickupObject(newInteractables);
-        OldInteractables = newInteractables;
+    private void PinObjectHeightToCamera()
+    {
+        if (isInteractableHeld)
+        {
+            heldInteractable.transform.position = ObjHoldingTransform.transform.position;
+        }
+    }
+
+
+    private void PickupInteractable()
+    {
+        if (heldInteractable == null)
+        {
+            if (closestInteractable == null)
+                return;
+            //pickup
+            heldInteractable = closestInteractable;
+        
+            heldInteractable.transform.SetParent(ObjHoldingTransform, false);
+            heldInteractable.transform.localPosition = Vector3.zero;
+        
+            Rigidbody rb = heldInteractable.GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.FreezePositionX |
+                             RigidbodyConstraints.FreezePositionZ |
+                             RigidbodyConstraints.FreezeRotation;
+            rb.isKinematic = true;
+            isInteractableHeld = true;
+        }
+        else
+        {
+            //Drop
+            heldInteractable.transform.SetParent(null, true);
+            
+            Rigidbody rb = heldInteractable.GetComponent<Rigidbody>();
+            rb.constraints = RigidbodyConstraints.None;
+            rb.isKinematic = false;
+
+            heldInteractable = null;
+            isInteractableHeld = false;
+        }
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Interactable"))
+        if (other.CompareTag("Interactable") && !isInteractableHeld)
         {
             print("interactable range entered");
-        }        
+            closestInteractable = other.GetComponent<Interactable>();
+            closestInteractable.SetTextActive(true);
+        }
     }
 
-    private List<Interactable> CheckForInteractables()
+    private void OnTriggerExit(Collider other)
     {
-        var hitColliders = Physics.OverlapSphere(transform.position, interactRadius);
-        List<Interactable> interactables = new List<Interactable>();
-        foreach (var collider in hitColliders)
+        if (other.CompareTag("Interactable"))
         {
-            Interactable interactable =  collider.gameObject.GetComponent<Interactable>();
-            if (interactable != null)
+            Interactable interactable = other.GetComponent<Interactable>();
+            interactable.SetTextActive(false);
+
+            if (closestInteractable == interactable)
             {
-                interactables.Add(interactable);
+                closestInteractable = null;
             }
         }
-
-        return interactables;
     }
-
-    private bool isHoldingObject;
-    private GameObject heldObject;
-
-
-    private void PickupObject(List<Interactable> interactables)
-    {
-        if (_pickupActionValue > 0 && objPickupCooldownTimer < 0)
-        {
-            objPickupCooldownTimer = objPickupCooldownTimerReset; // reset timer
-            interactables[0].gameObject.transform.SetParent(this.transform);
-            
-        } 
-    }
-    
 }

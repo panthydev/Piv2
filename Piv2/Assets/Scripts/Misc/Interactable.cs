@@ -23,7 +23,7 @@ public class Interactable : MonoBehaviour
     private void SetupInteractable()
     {
         var col = GetComponent<SphereCollider>();
-        col.radius = transform.localScale.magnitude;
+        col.radius = 1.5f;
         col.isTrigger = true;
         transform.tag = "Interactable";
     }
