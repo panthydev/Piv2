@@ -199,6 +199,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 wishDir = new Vector3(K_WishDir.x * targetMaxSpeed, rb.linearVelocity.y, K_WishDir.z * targetMaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
+            HandleGravity();
         }
         else if (isAir) // air control / steering
         {
@@ -241,9 +242,10 @@ public class PlayerMovement : MonoBehaviour
             Vector3 wishDir = new Vector3(K_WishDir.x * MaxSpeed, rb.linearVelocity.y, K_WishDir.z * MaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
             rb.linearVelocity = newVelocityDir;
+            HandleGravity();
         }
         
-        
+        HandleGravity();
         
         
         
