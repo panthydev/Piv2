@@ -4,8 +4,6 @@
     <list default="true" id="318cb1c5-2d2d-47d2-82ad-6f09233627c1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/Interactable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Misc/Interactable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/ObjectGrabber.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/ObjectGrabber.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +135,7 @@
       <workItem from="1794228333501" duration="4191000" />
       <workItem from="1794851708450" duration="11900000" />
       <workItem from="1794924864333" duration="26135000" />
-      <workItem from="1795011811209" duration="25617000" />
+      <workItem from="1795011811209" duration="28383000" />
     </task>
     <servers />
   </component>

@@ -8,6 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class PlayerMovement : MonoBehaviour
 {
     // fix all these variables at some point
+    private CapsuleCollider playerCollider;
     public bool isAir;
     private float _verticalAngle;
     private float _horizontalAngle = 0f;
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
     {
         _mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
         
 
         _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
@@ -77,6 +79,8 @@ public class PlayerMovement : MonoBehaviour
     public bool _isSliding;
     private void HandleSlide()
     {
+        bool shouldSlide = _slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround);
+        
         if (_slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround))
         {
             if (JustHitGround)
@@ -89,17 +93,20 @@ public class PlayerMovement : MonoBehaviour
             
             _isSliding = true;
             JustHitGround = false;
-            //Vector3 newScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z);
-            //transform.localScale = newScale;
             
             
-            
+            playerCollider.height = 1f;
+            playerCollider.center = new Vector3(playerCollider.center.x, -0.5f, playerCollider.center.z);
+            Debug.Log($"Bottom: resizing");
+
         }
         else
         {
             _isSliding = false;
-            Vector3 newScale = new Vector3(transform.localScale.x, 1, transform.localScale.z);
-            transform.localScale = newScale;
+            
+            
+            playerCollider.height = 2;
+            playerCollider.center = new Vector3(playerCollider.center.x, 0, playerCollider.center.z);
         }
     }
 
@@ -293,6 +300,7 @@ public class PlayerMovement : MonoBehaviour
 }
 /* TODO
 - add walljumps
+- add slide visuals
 - add wall hold/grab (optional)
 - maybe fix animations ?
 - fix object pickup / set objHolder to be at object origin, THEN parent object to objHolder. move/rotate objHolder up/down with mouse 
