@@ -8,6 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 public class PlayerMovement : MonoBehaviour
 {
     // fix all these variables at some point
+    public bool IsOnWall;
     private CapsuleCollider playerCollider;
     public bool isAir;
     private float _verticalAngle;
@@ -140,9 +141,6 @@ public class PlayerMovement : MonoBehaviour
         {
             jumpCoolDownTimer = jumpCoolDownTimerResetValue;
             isAir = true;
-
-            
-            
             
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             
@@ -151,9 +149,6 @@ public class PlayerMovement : MonoBehaviour
             
 
             rb.linearVelocity += new Vector3(ForwardBoost.x, jumpForceUp, ForwardBoost.z);
-
-
-            //rb.AddForce(transform.up * 500);
         }
     }
 
@@ -204,7 +199,6 @@ public class PlayerMovement : MonoBehaviour
         float maxAirVelocityChange = airAcceleration * Time.fixedDeltaTime; // for DE-accelerating usually.
         
         
-        
         M_WishDir = _mainCamera.transform.forward;
         M_WishDir.y = 0;
         
@@ -217,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
         K_WishDir = right + forward;
 
         //ground movement
-        if (K_Input.magnitude != 0 && !isAir)
+        if (K_Input.magnitude != 0 && !isAir && !IsOnWall)
         {
             float targetMaxSpeed = MaxSpeed;
             
@@ -240,7 +234,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = newVelocityDir;
            // HandleGravity();
         }
-        else if (isAir) // air control / steering
+        else if (isAir && !IsOnWall) // air control / steering
         {
 
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
@@ -283,12 +277,7 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = newVelocityDir;
             
         }
-        
         HandleGravity();
-        
-        
-        
-        
     }
 
     private void HandleGravity()
