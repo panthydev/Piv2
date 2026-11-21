@@ -82,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         CheckIsAir();
+       // CheckForAir();
+        CheckForWallRun();
         HandleSlide();
         HandleJump();
         CalculatePlayerDirection();
@@ -129,6 +131,21 @@ public class PlayerMovement : MonoBehaviour
                 playerCollider.center = new Vector3(playerCollider.center.x, 0, playerCollider.center.z);
             }
         }
+    }
+
+    private float OldYValue; //compare against new to see if in air
+    private void CheckForAir()
+    {
+        if (rb.linearVelocity.y != OldYValue)
+        {
+            isAir = true;
+        }
+        else
+        {
+            isAir = false;
+        }
+
+        OldYValue = rb.linearVelocity.y;
     }
 
     public float jumpCoolDownTimer = 1f;
@@ -289,29 +306,37 @@ public class PlayerMovement : MonoBehaviour
     {
         //this method should only check for walls and keep hitWall obj null or filled.
 
+        
+        
         RaycastHit tempHit = new RaycastHit();
 
         GameObject TempLeftWall = null;
         GameObject TempRightWall = null;
+
+        Ray leftRay = new Ray(transform.position, transform.right * -1);
+        Ray rightRay = new Ray(transform.position, transform.right);
         
-        if (Physics.Raycast(transform.position, transform.right * -1, out var rightHit))
+        
+        Debug.DrawRay(leftRay.origin, leftRay.direction, Color.red);
+        Debug.DrawRay(rightRay.origin, rightRay.direction, Color.blue);
+        
+        
+        if (Physics.Raycast(rightRay, out var rightHit, 1f))
         {
             TempRightWall = rightHit.transform.gameObject;
         }
-        if (Physics.Raycast(transform.position, transform.right * -1, out var leftHit))
+        if (Physics.Raycast(leftRay, out var leftHit,1))
         {
             TempLeftWall = leftHit.transform.gameObject;
         }
         
         SetHitWall(TempLeftWall, TempRightWall, leftHit, rightHit); // gets set to null if no walls present.
-        
-        
-        
-        
-        
-        
-      
 
+
+
+
+
+        
         // do ray cast left and right
         // if it hits, always save it.
         //if in the air, set the CURRENT WALL to be equal to the saved wall... this keeps them seperate
@@ -333,18 +358,37 @@ public class PlayerMovement : MonoBehaviour
         {
             
             hitWall = leftHit.distance > rightHit.distance ? rightHit.transform.gameObject : leftHit.transform.gameObject; // select closest wall
+            
+            if (isAir)
+            {
+                currentWall = hitWall;
+                isAir = false;
+            }
+
         }
         else if(TempLeftWall != null && TempRightWall == null)
         {
             hitWall = TempLeftWall;
+            if (isAir)
+            {
+                currentWall = hitWall;
+                isAir = false;
+            }
+            
         }
         else if(TempLeftWall == null && TempRightWall != null)
         {
             hitWall = TempRightWall;
+            if (isAir)
+            {
+                currentWall = hitWall;
+                isAir = false;
+            }
         }
         else
         {
             hitWall = null;
+            currentWall = null;
         }
     }
 
