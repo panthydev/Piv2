@@ -8,7 +8,10 @@ using Vector3 = UnityEngine.Vector3;
 public class PlayerMovement : MonoBehaviour
 {
     // fix all these variables at some point
+    
     public bool IsOnWall;
+    public GameObject hitWall;
+    public GameObject currentWall;
     private CapsuleCollider playerCollider;
     public bool isAir;
     private float _verticalAngle;
@@ -172,12 +175,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    private bool CanJump()
-    {
-        return false;
-    }
-
     private void GetPlayerInput()
     {
         K_Input = moveInput.ReadValue<Vector2>().normalized;
@@ -268,6 +265,9 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = new Vector3(horizontalVelocity.x,
                 rb.linearVelocity.y,
                 horizontalVelocity.z);
+        } else if (IsOnWall && isAir)
+        {
+            //
         }
         else
         {
@@ -284,8 +284,59 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y - gravityAcceleration * Time.fixedDeltaTime, rb.linearVelocity.z);
     }
-    
-    
+
+    private void CheckForWallRun()
+    {
+        //this method should only check for walls and keep hitWall obj null or filled.
+
+        RaycastHit tempHit = new RaycastHit();
+
+        GameObject TempLeftWall = null;
+        GameObject TempRightWall = null;
+        if (Physics.Raycast(transform.position, transform.right * -1, out var rightHit))
+        {
+            TempRightWall = rightHit.transform.gameObject;
+        }
+        if (Physics.Raycast(transform.position, transform.right * -1, out var leftHit))
+        {
+            TempLeftWall = leftHit.transform.gameObject;
+        }
+        
+        
+        
+        if (TempLeftWall != null && TempRightWall != null)
+        {
+            
+            hitWall = leftHit.distance > rightHit.distance ? rightHit.transform.gameObject : leftHit.transform.gameObject; // select closest wall
+        }
+        else if(TempLeftWall != null && TempRightWall == null)
+        {
+            hitWall = TempLeftWall;
+        }
+        else if(TempLeftWall == null && TempRightWall != null)
+        {
+            hitWall = TempRightWall;
+        }
+        else
+        {
+            hitWall = null;
+        }
+      
+
+        // do ray cast left and right
+        // if it hits, always save it.
+        //if in the air, set the CURRENT WALL to be equal to the saved wall... this keeps them seperate
+        // turn off "is in air" bool
+
+
+        //if raycast doesnt hit, make "hitWall" null and current wall null.
+
+
+
+        // somewhere else, when hitwall != null, constrain/freeze local RIGHT axis (maybe set player RIGHT axis movement to 0 while on wall), make gravity lower, pin player velocity along the wall,
+        // maybe we should check camera forward vector against wall normal vector, camera forward vector needs to be within that 90 degree angle, else detach from wall.
+        // when jumping, un-constrain RIGHT axis, give perform jump as normal but with higher values for more boost ?
+    }
     
 
 
