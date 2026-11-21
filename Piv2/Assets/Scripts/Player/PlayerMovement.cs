@@ -7,6 +7,10 @@ using Vector3 = UnityEngine.Vector3;
 
 public class PlayerMovement : MonoBehaviour
 {
+    
+    //NOTES
+    // TICK IS ON WALL, DO THE REST WITH ATTACHING TO WALK, FREEZING CONSTRAINTS, ONLY ONE JUMP OFF, GIVE JUMP BOOST ALONG WALLS NORMAL VECTOR
+    
     // fix all these variables at some point
     
     public bool IsOnWall;
@@ -82,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         CheckIsAir();
-       // CheckForAir();
+      //  CheckForAir();
         CheckForWallRun();
         HandleSlide();
         HandleJump();
@@ -136,7 +140,9 @@ public class PlayerMovement : MonoBehaviour
     private float OldYValue; //compare against new to see if in air
     private void CheckForAir()
     {
-        if (rb.linearVelocity.y != OldYValue)
+        
+        
+        if (transform.position.y != OldYValue)
         {
             isAir = true;
         }
@@ -174,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckIsAir()
     {
-        if (Physics.Raycast(transform.position, transform.up*-1.01f, out var hit, 1))
+        if (Physics.Raycast(transform.position, transform.up*-1.1f, out var hit, 1.1f))
         {
             Debug.DrawRay(transform.position, transform.up*-1);
             if (hit.collider.CompareTag("Ground"))
@@ -189,6 +195,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 isAir = true;
             }
+        }
+        else
+        {
+            isAir = true;
         }
     }
 

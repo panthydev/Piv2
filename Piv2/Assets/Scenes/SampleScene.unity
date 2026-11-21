@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 125734326}
   m_Layer: 0
   m_Name: Cube_8
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2609,7 +2609,7 @@ GameObject:
   - component: {fileID: 738386740}
   m_Layer: 0
   m_Name: Cube_9
-  m_TagString: Ground
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4245,7 +4245,7 @@ MonoBehaviour:
   jumpForceUp: 10
   jumpForceForward: 10
   SlideVelocityControl: 5
-  LandingBoost: 2
+  LandingBoost: 1.2
   SlideMinSpeedThreshold: 15
   moveInput:
     m_Name: Move Input
@@ -4348,10 +4348,10 @@ MonoBehaviour:
       m_Flags: 0
     m_Flags: 0
   gravityAcceleration: 29.4
-  acceleration: 30
+  acceleration: 50
   airAcceleration: 60
   airResistance: 1
-  MaxSpeed: 10
+  MaxSpeed: 8
   MaxAirSpeed: 1
   maxSlideSpeed: 30
   tempSlideSpeed: 0
