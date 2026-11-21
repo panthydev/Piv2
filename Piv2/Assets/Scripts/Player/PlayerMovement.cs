@@ -293,6 +293,7 @@ public class PlayerMovement : MonoBehaviour
 
         GameObject TempLeftWall = null;
         GameObject TempRightWall = null;
+        
         if (Physics.Raycast(transform.position, transform.right * -1, out var rightHit))
         {
             TempRightWall = rightHit.transform.gameObject;
@@ -302,8 +303,32 @@ public class PlayerMovement : MonoBehaviour
             TempLeftWall = leftHit.transform.gameObject;
         }
         
+        SetHitWall(TempLeftWall, TempRightWall, leftHit, rightHit); // gets set to null if no walls present.
         
         
+        
+        
+        
+        
+      
+
+        // do ray cast left and right
+        // if it hits, always save it.
+        //if in the air, set the CURRENT WALL to be equal to the saved wall... this keeps them seperate
+        // turn off "is in air" bool
+
+
+        //if raycast doesnt hit, make "hitWall" null and current wall null.
+
+
+
+        // somewhere else, when hitwall != null, constrain/freeze local RIGHT axis (maybe set player RIGHT axis movement to 0 while on wall), make gravity lower, pin player velocity along the wall,
+        // maybe we should check camera forward vector against wall normal vector, camera forward vector needs to be within that 90 degree angle, else detach from wall.
+        // when jumping, un-constrain RIGHT axis, give perform jump as normal but with higher values for more boost ?
+    }
+
+    private void SetHitWall(GameObject TempLeftWall, GameObject TempRightWall, RaycastHit leftHit, RaycastHit rightHit)
+    {
         if (TempLeftWall != null && TempRightWall != null)
         {
             
@@ -321,23 +346,7 @@ public class PlayerMovement : MonoBehaviour
         {
             hitWall = null;
         }
-      
-
-        // do ray cast left and right
-        // if it hits, always save it.
-        //if in the air, set the CURRENT WALL to be equal to the saved wall... this keeps them seperate
-        // turn off "is in air" bool
-
-
-        //if raycast doesnt hit, make "hitWall" null and current wall null.
-
-
-
-        // somewhere else, when hitwall != null, constrain/freeze local RIGHT axis (maybe set player RIGHT axis movement to 0 while on wall), make gravity lower, pin player velocity along the wall,
-        // maybe we should check camera forward vector against wall normal vector, camera forward vector needs to be within that 90 degree angle, else detach from wall.
-        // when jumping, un-constrain RIGHT axis, give perform jump as normal but with higher values for more boost ?
     }
-    
 
 
     private void CalculateLook()
