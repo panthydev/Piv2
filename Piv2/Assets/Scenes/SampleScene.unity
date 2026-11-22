@@ -4347,7 +4347,6 @@ MonoBehaviour:
       m_Action: Slide Input
       m_Flags: 0
     m_Flags: 0
-  gravityAcceleration: 29.4
   acceleration: 50
   airAcceleration: 60
   airResistance: 1
@@ -4451,7 +4450,7 @@ Transform:
   m_GameObject: {fileID: 1369618343}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 17.04, z: -1.89}
+  m_LocalPosition: {x: 37, y: 3.5, z: -37.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

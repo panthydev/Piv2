@@ -40,7 +40,8 @@ public class PlayerMovement : MonoBehaviour
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
 
-    public float gravityAcceleration = 9.8f;
+    public const float gravityAcceleration = 30f;
+    public const float GravityAccelerationOnWall = 15f;
     public float acceleration = 1.5f;
     public float airAcceleration = 1.5f;
     public float airResistance = 2;
@@ -304,13 +305,17 @@ public class PlayerMovement : MonoBehaviour
             rb.linearVelocity = newVelocityDir;
             
         }
-        HandleGravity();
+        
+        
+        if(!IsOnWall) HandleGravity();
+        
     }
 
-    private void HandleGravity()
+    private void HandleGravity(float customGravity = gravityAcceleration)
     {
-        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y - gravityAcceleration * Time.fixedDeltaTime, rb.linearVelocity.z);
+        rb.linearVelocity = new Vector3(rb.linearVelocity.x, rb.linearVelocity.y - customGravity * Time.fixedDeltaTime, rb.linearVelocity.z);
     }
+    
 
     private void CheckForWallRun()
     {
@@ -323,7 +328,7 @@ public class PlayerMovement : MonoBehaviour
         GameObject TempLeftWall = null;
         GameObject TempRightWall = null;
 
-        Ray leftRay = new Ray(transform.position, transform.right * -1);
+        Ray leftRay = new Ray(transform.position, transform.right * -1); // make these a little bit shorter to have TIGHTER wallruns, ie fall off the wall at higher angles
         Ray rightRay = new Ray(transform.position, transform.right);
         
         
@@ -331,11 +336,11 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(rightRay.origin, rightRay.direction, Color.blue);
         
         
-        if (Physics.Raycast(rightRay, out var rightHit, 1f))
+        if (Physics.Raycast(rightRay, out var rightHit, 1f)) // make these a little bit shorter to have TIGHTER wallruns, ie fall off the wall at higher angles
         {
             TempRightWall = rightHit.transform.gameObject;
         }
-        if (Physics.Raycast(leftRay, out var leftHit,1))
+        if (Physics.Raycast(leftRay, out var leftHit,1)) // make these a little bit shorter to have TIGHTER wallruns, ie fall off the wall at higher angles
         {
             TempLeftWall = leftHit.transform.gameObject;
         }
@@ -343,6 +348,7 @@ public class PlayerMovement : MonoBehaviour
         SetHitWall(TempLeftWall, TempRightWall, leftHit, rightHit); // gets set to null if no walls present.
         
         IsOnWall = currentWall == null ? IsOnWall = false : IsOnWall = true;
+        HandleWallRunLogic();
 
 
 
@@ -362,6 +368,19 @@ public class PlayerMovement : MonoBehaviour
         // somewhere else, when hitwall != null, constrain/freeze local RIGHT axis (maybe set player RIGHT axis movement to 0 while on wall), make gravity lower, pin player velocity along the wall,
         // maybe we should check camera forward vector against wall normal vector, camera forward vector needs to be within that 90 degree angle, else detach from wall.
         // when jumping, un-constrain RIGHT axis, give perform jump as normal but with higher values for more boost ?
+    }
+
+    private void HandleWallRunLogic()
+    {
+        if (IsOnWall)
+        {
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            HandleGravity(GravityAccelerationOnWall);
+        }
+        else
+        {
+            rb.constraints = RigidbodyConstraints.None;
+        }
     }
 
     private void SetHitWall(GameObject TempLeftWall, GameObject TempRightWall, RaycastHit leftHit, RaycastHit rightHit)
