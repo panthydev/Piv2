@@ -395,7 +395,7 @@ public class PlayerMovement : MonoBehaviour
                 maxWallVelocityChange * Time.fixedDeltaTime);
             rb.linearVelocity = new Vector3(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
             
-            //rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.constraints = RigidbodyConstraints.FreezePositionX;
             HandleGravity(GravityAccelerationOnWall);
         }
         else
