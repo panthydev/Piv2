@@ -383,6 +383,9 @@ public class PlayerMovement : MonoBehaviour
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
             float currentSpeed = horizontalVelocity.magnitude;
 
+            if (Vector3.Dot(horizontalVelocity, wallDirection) < 0) wallDirection = -wallDirection;
+            
+
             Vector3 targetVelocity = wallDirection * currentSpeed;
             
             
