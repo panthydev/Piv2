@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     
     //NOTES
-    // TICK IS ON WALL, DO THE REST WITH ATTACHING TO WALK, FREEZING CONSTRAINTS, ONLY ONE JUMP OFF, GIVE JUMP BOOST ALONG WALLS NORMAL VECTOR
+    // TICK IS ON WALL, DO THE REST WITH ATTACHING TO WALL, FREEZING CONSTRAINTS, ONLY ONE JUMP OFF, GIVE JUMP BOOST ALONG WALLS NORMAL VECTOR
     
     // fix all these variables at some point
     
@@ -181,7 +181,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckIsAir()
     {
-        if (Physics.Raycast(transform.position, transform.up*-1.1f, out var hit, 1.1f))
+        if (Physics.Raycast(transform.position, transform.up*-1.05f, out var hit, 1.05f))
         {
             Debug.DrawRay(transform.position, transform.up*-1);
             if (hit.collider.CompareTag("Ground"))
@@ -191,6 +191,7 @@ public class PlayerMovement : MonoBehaviour
                     JustHitGround = true;
                 }
                 isAir = false; // hit ground
+                IsOnWall = false;
             }
             else
             {
@@ -374,7 +375,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsOnWall)
         {
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            Vector3 WallRunVector = new Vector3(0, rb.linearVelocity.y, rb.linearVelocity.z + rb.linearVelocity.z);
+            //rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.linearVelocity = WallRunVector;
             HandleGravity(GravityAccelerationOnWall);
         }
         else

@@ -4242,7 +4242,7 @@ MonoBehaviour:
   hitWall: {fileID: 0}
   currentWall: {fileID: 0}
   isAir: 1
-  jumpForceUp: 10
+  jumpForceUp: 15
   jumpForceForward: 10
   SlideVelocityControl: 5
   LandingBoost: 1.2
