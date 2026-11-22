@@ -163,7 +163,7 @@ public class PlayerMovement : MonoBehaviour
         jumpCoolDownTimer -= Time.fixedDeltaTime;
         
         
-        if (_jumpValue == 1 && !isAir)
+        if (_jumpValue == 1 && !isAir && !IsOnWall) //IsOnWall is temp maybe
         {
             jumpCoolDownTimer = jumpCoolDownTimerResetValue;
             isAir = true;
@@ -341,12 +341,14 @@ public class PlayerMovement : MonoBehaviour
         }
         
         SetHitWall(TempLeftWall, TempRightWall, leftHit, rightHit); // gets set to null if no walls present.
-
-
-
-
-
         
+        IsOnWall = currentWall == null ? IsOnWall = false : IsOnWall = true;
+
+
+
+
+
+
         // do ray cast left and right
         // if it hits, always save it.
         //if in the air, set the CURRENT WALL to be equal to the saved wall... this keeps them seperate
