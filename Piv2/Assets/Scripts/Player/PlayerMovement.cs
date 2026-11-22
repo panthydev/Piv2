@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     // TICK IS ON WALL, DO THE REST WITH ATTACHING TO WALL, FREEZING CONSTRAINTS, ONLY ONE JUMP OFF, GIVE JUMP BOOST ALONG WALLS NORMAL VECTOR
     
     // fix all these variables at some point
-    
+    private Vector3 wallNormal;
     public bool IsOnWall;
     public GameObject hitWall;
     public GameObject currentWall;
@@ -41,13 +41,15 @@ public class PlayerMovement : MonoBehaviour
     private float _lowerLookLimit = -89f;
 
     public const float gravityAcceleration = 30f;
-    public const float GravityAccelerationOnWall = 15f;
+    public  float GravityAccelerationOnWall = 15f;
     public float acceleration = 1.5f;
     public float airAcceleration = 1.5f;
     public float airResistance = 2;
     public float MaxSpeed = 10;
     public float MaxAirSpeed = 20;
     public float maxSlideSpeed = 20;
+    public float maxWallSpeed = 2000;
+    public float maxWallVelocityChange = 1f;
     public float tempSlideSpeed = 0;
 
     public Rigidbody rb;
@@ -87,11 +89,12 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         CheckIsAir();
-      //  CheckForAir();
         CheckForWallRun();
+        HandleWallRunLogic();
         HandleSlide();
         HandleJump();
         CalculatePlayerDirection();
+       
     }
 
 
@@ -298,7 +301,7 @@ public class PlayerMovement : MonoBehaviour
         {
             //
         }
-        else
+        else if (!IsOnWall)
         {
             
             Vector3 wishDir = new Vector3(K_WishDir.x * MaxSpeed, rb.linearVelocity.y, K_WishDir.z * MaxSpeed);
@@ -349,7 +352,7 @@ public class PlayerMovement : MonoBehaviour
         SetHitWall(TempLeftWall, TempRightWall, leftHit, rightHit); // gets set to null if no walls present.
         
         IsOnWall = currentWall == null ? IsOnWall = false : IsOnWall = true;
-        HandleWallRunLogic();
+        
 
 
 
@@ -375,9 +378,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsOnWall)
         {
-            Vector3 WallRunVector = new Vector3(0, rb.linearVelocity.y, rb.linearVelocity.z + rb.linearVelocity.z);
+            Vector3 wallDirection = Vector3.Cross(Vector3.up, wallNormal).normalized;
+
+            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            float currentSpeed = horizontalVelocity.magnitude;
+
+            Vector3 targetVelocity = wallDirection * currentSpeed;
+            
+            
+            float targetMaxSpeed = maxWallSpeed;
+
+            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity,
+                maxWallVelocityChange * Time.fixedDeltaTime);
+            rb.linearVelocity = new Vector3(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
+            
             //rb.constraints = RigidbodyConstraints.FreezePositionX;
-            rb.linearVelocity = WallRunVector;
             HandleGravity(GravityAccelerationOnWall);
         }
         else
@@ -395,6 +410,7 @@ public class PlayerMovement : MonoBehaviour
             
             if (isAir)
             {
+                wallNormal = leftHit.distance > rightHit.distance ? rightHit.normal : leftHit.normal;
                 currentWall = hitWall;
                 isAir = false;
             }
@@ -407,6 +423,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentWall = hitWall;
                 isAir = false;
+                wallNormal = leftHit.normal;
             }
             
         }
@@ -417,6 +434,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 currentWall = hitWall;
                 isAir = false;
+                wallNormal = rightHit.normal;
             }
         }
         else
