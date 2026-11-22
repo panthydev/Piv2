@@ -16,12 +16,14 @@ public class ObjectGrabber : MonoBehaviour
     public Interactable heldInteractable;
     public bool isInteractableHeld;
 
+    public Rigidbody PlayerRb;
     public Transform ObjHoldingTransform;
     public float objPickupCooldownTimer = 0.05f;
     public float objPickupCooldownTimerReset = 0.05f;
 
     private void Awake()
     {
+        PlayerRb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<Collider>();
         pickupAction.Enable();
         throwAction.Enable();
@@ -121,7 +123,7 @@ public class ObjectGrabber : MonoBehaviour
 
         if (throwItem)
         {
-            heldInteractable.ThrowObject(Camera.main.transform.forward, 15);
+            heldInteractable.ThrowObject(Camera.main.transform.forward, PlayerRb.linearVelocity);
         }
         heldInteractable = null;
         isInteractableHeld = false;

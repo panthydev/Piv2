@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public InputAction mouseInput;
     public InputAction jumpInput;
     public InputAction slideInput;
+    private Animator _animator;
     private Vector3 K_Input;
     private Vector3 K_WishDir;
     private Vector3 M_WishDir;
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         _mainCamera = Camera.main;
         rb = GetComponent<Rigidbody>();
         playerCollider = GetComponent<CapsuleCollider>();
+        _animator = GetComponentInChildren<Animator>();
         
 
         _verticalAngle = _mainCamera.transform.rotation.eulerAngles.x;
@@ -84,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
     {
         GetPlayerInput();
         CalculateLook();
+        HandleAnimationStates();
     }
 
     private void FixedUpdate()
@@ -95,6 +98,40 @@ public class PlayerMovement : MonoBehaviour
         HandleJump();
         CalculatePlayerDirection();
        
+    }
+
+    private void HandleAnimationStates()
+    {
+        if (!_isSliding && !IsOnWall && !isAir && rb.linearVelocity.magnitude > 0.5f)
+        {
+            print("MF1");
+            _animator.SetBool("IsRunning", true);
+        }
+        else
+        {
+            _animator.SetBool("IsRunning", false);
+        }
+        
+        if (_isSliding)
+        {
+            print("MF2");
+            _animator.SetBool("IsSliding", true);
+        }
+        else
+        {
+            _animator.SetBool("IsSliding", false);
+        }
+        
+
+        if (rb.linearVelocity.magnitude < 0.1f)
+        {
+            
+            _animator.SetBool("IsIdle", true);
+        }
+        else
+        {
+            _animator.SetBool("IsIdle", false);
+        }
     }
 
 
@@ -169,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (_jumpValue == 1 && !isAir && !IsOnWall) //IsOnWall is temp maybe
         {
+            _animator.SetTrigger("IsJumping 0");
             jumpCoolDownTimer = jumpCoolDownTimerResetValue;
             isAir = true;
             

@@ -66,10 +66,11 @@ public class Interactable : MonoBehaviour
         TextObj.SetActive(false);
     }
 
-    public void ThrowObject(Vector3 direction, float throwForce = 0)
+    public void ThrowObject(Vector3 direction, Vector3 playerVelocity, float throwForce = 0)
     {
         if (throwForce == 0) throwForce = defaultThrowForce;
-        
+
+        rb.linearVelocity = playerVelocity;
         rb.AddForce(direction * throwForce, ForceMode.Impulse);
 
     }

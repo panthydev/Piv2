@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb222742eeb6904a837587375c814c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactable
-  defaultThrowForce: 2000
+  defaultThrowForce: 20
   YOffset: 1.5
 --- !u!64 &6485901316260667877
 MeshCollider:
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e36f09d9dfe1a4546a3b8ad6d4f0f223, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  ExplosiveForce: 4000
+  ExplosiveForce: 3000
   speedThresholdForBoom: 0.5
   explosionRadius: 15
   upwardsModifier: 2
