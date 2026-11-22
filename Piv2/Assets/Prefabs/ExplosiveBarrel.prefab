@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   ExplosiveForce: 3000
-  speedThresholdForBoom: 0.5
+  speedThresholdForBoom: 2
   explosionRadius: 15
   upwardsModifier: 2
   explosionParticleSystemPrefab: {fileID: 7379041083774995540, guid: b2056eb4a600f394c834edc1ddc4fc35, type: 3}

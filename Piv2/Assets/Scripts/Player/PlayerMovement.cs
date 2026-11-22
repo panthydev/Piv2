@@ -503,8 +503,7 @@ public class PlayerMovement : MonoBehaviour
 }
 /* TODO
 - add walljumps
-- add slide visuals
-- add wall hold/grab (optional)
-- maybe fix animations ?
+- add slide visuals NEVERRRRRR
+- maybe fix animations ? NEVVERRRRRR
 - fix object pickup / set objHolder to be at object origin, THEN parent object to objHolder. move/rotate objHolder up/down with mouse 
 */
