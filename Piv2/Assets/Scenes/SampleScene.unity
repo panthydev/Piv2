@@ -2729,7 +2729,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c728d02a9615285409b3feb939e849f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  dampening: 500
+  head: {fileID: 144675562}
+  damping: 100
 --- !u!4 &344483175 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8003634346921049825, guid: c48acfbfb40a1314c92d047ce86a4753, type: 3}

@@ -4,6 +4,7 @@
     <list default="true" id="318cb1c5-2d2d-47d2-82ad-6f09233627c1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SampleScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/Dampen.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Misc/Dampen.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,7 +150,7 @@
       <workItem from="1795268676734" duration="10280000" />
       <workItem from="1795352416793" duration="1172000" />
       <workItem from="1795367843576" duration="14204000" />
-      <workItem from="1795435869122" duration="4125000" />
+      <workItem from="1795435869122" duration="5240000" />
     </task>
     <servers />
   </component>
