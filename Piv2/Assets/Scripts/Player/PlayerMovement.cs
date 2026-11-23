@@ -162,16 +162,16 @@ public class PlayerMovement : MonoBehaviour
                 playerCollider.center = new Vector3(playerCollider.center.x, -0.25f, playerCollider.center.z);
                 Debug.Log($"Bottom: resizing");
 
-                Transform camTrans = _mainCamera.GetComponent<Transform>();
-                camTrans.transform.localPosition = new Vector3(camTrans.transform.localPosition.x,
-                    camTrans.transform.localPosition.y - 0.5f, camTrans.transform.localPosition.z);
+               // Transform camTrans = _mainCamera.GetComponent<Transform>();
+               // camTrans.transform.localPosition = new Vector3(camTrans.transform.localPosition.x,
+                //    camTrans.transform.localPosition.y - 0.5f, camTrans.transform.localPosition.z);
             }
             else
             {
                 
-                Transform camTrans = _mainCamera.GetComponent<Transform>();
-                camTrans.transform.localPosition = new Vector3(camTrans.transform.localPosition.x,
-                    camTrans.transform.localPosition.y + 0.5f, camTrans.transform.localPosition.z);
+                //Transform camTrans = _mainCamera.GetComponent<Transform>();
+                //camTrans.transform.localPosition = new Vector3(camTrans.transform.localPosition.x,
+                 //   camTrans.transform.localPosition.y + 0.5f, camTrans.transform.localPosition.z);
                 playerCollider.height = 2;
                 playerCollider.center = new Vector3(playerCollider.center.x, 0, playerCollider.center.z);
             }
@@ -508,7 +508,8 @@ public class PlayerMovement : MonoBehaviour
 - Need to implement some kind of user interface that isnt diegetic.
 - need one more physics material? probably just another wall type or ground type
 - import the sound manager ive always used, get some source sounds in here
-- 
+- maybe cap explosion force, like just clamp it, when calculating it in the volatile script.
+- fix camera damp and follow. maybe attach to an object that tries to mimick the head bone position.
 -Fix getting stuck on non-ground geometry, it thinks its in the air. maybe it gets fixed along with the redirection of velocity / movement fix.
 - fix object pickup / set objHolder to be at object origin, THEN parent object to objHolder. move/rotate objHolder up/down with mouse 
 */
