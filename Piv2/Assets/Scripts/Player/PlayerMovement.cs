@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     public bool IsOnWall;
     public GameObject hitWall;
     public GameObject currentWall;
+    public GameObject LastJumpedFromWall;
     private CapsuleCollider playerCollider;
     public bool isAir;
     private float _verticalAngle;
@@ -92,10 +93,10 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         CheckIsAir();
+        HandleJump();
         CheckForWallRun();
         HandleWallRunLogic();
         HandleSlide();
-        HandleJump();
         CalculatePlayerDirection();
        
     }
@@ -104,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!_isSliding && !IsOnWall && !isAir && rb.linearVelocity.magnitude > 0.5f)
         {
-            print("MF1");
+            
             _animator.SetBool("IsRunning", true);
         }
         else
@@ -114,7 +115,7 @@ public class PlayerMovement : MonoBehaviour
         
         if (_isSliding)
         {
-            print("MF2");
+            
             _animator.SetBool("IsSliding", true);
         }
         else
@@ -217,8 +218,34 @@ public class PlayerMovement : MonoBehaviour
             
 
             rb.linearVelocity += new Vector3(ForwardBoost.x, jumpForceUp, ForwardBoost.z);
+            print("performing jump");
+        }
+
+        if (_jumpValue == 1 && IsOnWall)
+        {
+            if (LastJumpedFromWall == null || LastJumpedFromWall != currentWall)
+            {
+                LastJumpedFromWall = currentWall;
+
+                currentWall = null;
+                IsOnWall = false;
+                isAir = true;
+
+                rb.constraints = RigidbodyConstraints.None;
+                _animator.SetTrigger("IsJumping 0");
+
+                Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+                horizontalVelocity *= 1.2f;
+
+                horizontalVelocity += wallNormal * jumpForceForward;
+
+                rb.linearVelocity = new Vector3(horizontalVelocity.x, jumpForceUp, horizontalVelocity.z);
+
+            }
+                
         }
     }
+    
 
     private void CheckIsAir()
     {
@@ -230,6 +257,7 @@ public class PlayerMovement : MonoBehaviour
                 if (isAir)
                 {
                     JustHitGround = true;
+                    LastJumpedFromWall = null;
                 }
                 isAir = false; // hit ground
                 IsOnWall = false;
@@ -416,24 +444,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsOnWall)
         {
-            Vector3 wallDirection = Vector3.Cross(Vector3.up, wallNormal).normalized;
+            Vector3 horizontalVelocity = new Vector3(
+                rb.linearVelocity.x, 0, rb.linearVelocity.z
+            );
 
-            Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
+            // Remove the velocity pointing into the wall
+            Vector3 wallVelocity = Vector3.ProjectOnPlane(
+                horizontalVelocity,
+                wallNormal
+            );
+
+            // Preserve the speed we already had
             float currentSpeed = horizontalVelocity.magnitude;
 
-            if (Vector3.Dot(horizontalVelocity, wallDirection) < 0) wallDirection = -wallDirection;
-            
+            // Give the projected velocity its original speed
+            wallVelocity = wallVelocity.normalized * currentSpeed;
 
-            Vector3 targetVelocity = wallDirection * currentSpeed;
-            
-            
-            float targetMaxSpeed = maxWallSpeed;
-
-            horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, targetVelocity,
-                maxWallVelocityChange * Time.fixedDeltaTime);
-            rb.linearVelocity = new Vector3(horizontalVelocity.x, rb.linearVelocity.y, horizontalVelocity.z);
-            
-            rb.constraints = RigidbodyConstraints.FreezePositionX;
+            rb.linearVelocity = new Vector3(
+                wallVelocity.x,
+                rb.linearVelocity.y,
+                wallVelocity.z
+            );
             HandleGravity(GravityAccelerationOnWall);
         }
         else
@@ -449,7 +480,7 @@ public class PlayerMovement : MonoBehaviour
             
             hitWall = leftHit.distance > rightHit.distance ? rightHit.transform.gameObject : leftHit.transform.gameObject; // select closest wall
             
-            if (isAir)
+            if (isAir && LastJumpedFromWall != hitWall)
             {
                 wallNormal = leftHit.distance > rightHit.distance ? rightHit.normal : leftHit.normal;
                 currentWall = hitWall;
@@ -460,7 +491,7 @@ public class PlayerMovement : MonoBehaviour
         else if(TempLeftWall != null && TempRightWall == null)
         {
             hitWall = TempLeftWall;
-            if (isAir)
+            if (isAir && LastJumpedFromWall != hitWall)
             {
                 currentWall = hitWall;
                 isAir = false;
@@ -471,7 +502,7 @@ public class PlayerMovement : MonoBehaviour
         else if(TempLeftWall == null && TempRightWall != null)
         {
             hitWall = TempRightWall;
-            if (isAir)
+            if (isAir && LastJumpedFromWall != hitWall)
             {
                 currentWall = hitWall;
                 isAir = false;
@@ -482,6 +513,7 @@ public class PlayerMovement : MonoBehaviour
         {
             hitWall = null;
             currentWall = null;
+            
         }
     }
 
@@ -503,8 +535,6 @@ public class PlayerMovement : MonoBehaviour
 }
 /* TODO
 - add walljumps
-- add slide visuals NEVERRRRRR
-- maybe fix animations ? NEVVERRRRRR
 - Need to implement some kind of user interface that isnt diegetic.
 - need one more physics material? probably just another wall type or ground type
 - import the sound manager ive always used, get some source sounds in here
