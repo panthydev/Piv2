@@ -33,12 +33,17 @@ public class Volatile : MonoBehaviour
 
    private void OnCollisionEnter(Collision collision)
    {
+      
       if (rb.linearVelocity.magnitude > speedThresholdForBoom)
       { 
          Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
          
          Explode();
          Destroy(this.gameObject);
+      }
+      else
+      {
+         GetComponent<Soundify>().PlayDropSound();
       }
    }
 }

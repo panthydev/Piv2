@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 36.372715
+      value: 34.701496
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000019937761
+      value: -0.00000023447205
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 161.6185
+      value: 159.81468
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalRotation.w
@@ -199,4 +199,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   audioContainer: {fileID: 6418180475301049370, guid: 86e245b619181494a9659c557f7a0ecc, type: 2}
+  dropSoundContainer: {fileID: 6418180475301049370, guid: 67fdaea908ad8f549ae681cfa8dfad6b, type: 2}
   audioSourcePrefab: {fileID: 3524533305059042093, guid: 6d95795992772254587cca4e44425298, type: 3}
