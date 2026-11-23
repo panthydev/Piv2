@@ -505,5 +505,10 @@ public class PlayerMovement : MonoBehaviour
 - add walljumps
 - add slide visuals NEVERRRRRR
 - maybe fix animations ? NEVVERRRRRR
+- Need to implement some kind of user interface that isnt diegetic.
+- need one more physics material? probably just another wall type or ground type
+- import the sound manager ive always used, get some source sounds in here
+- 
+-Fix getting stuck on non-ground geometry, it thinks its in the air. maybe it gets fixed along with the redirection of velocity / movement fix.
 - fix object pickup / set objHolder to be at object origin, THEN parent object to objHolder. move/rotate objHolder up/down with mouse 
 */
