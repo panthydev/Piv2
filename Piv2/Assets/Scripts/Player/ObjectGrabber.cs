@@ -86,6 +86,7 @@ public class ObjectGrabber : MonoBehaviour
             if (closestInteractable == null)
                 return;
             //pickup
+            AudioManager.Instance.PlaySFX("ui_click");
             heldInteractable = closestInteractable;
         
             heldInteractable.transform.SetParent(ObjHoldingTransform, false);
@@ -112,6 +113,11 @@ public class ObjectGrabber : MonoBehaviour
 
     private void DropInteractable(bool throwItem = false)
     {
+        if (!throwItem)
+        {
+            AudioManager.Instance.PlaySFX("ui_click");
+            
+        }
         heldInteractable.transform.SetParent(null, true);
             
         Rigidbody rb = heldInteractable.GetComponent<Rigidbody>();
@@ -123,6 +129,7 @@ public class ObjectGrabber : MonoBehaviour
 
         if (throwItem)
         {
+            AudioManager.Instance.PlaySFX("Throw");
             heldInteractable.ThrowObject(Camera.main.transform.forward, PlayerRb.linearVelocity);
         }
         heldInteractable = null;

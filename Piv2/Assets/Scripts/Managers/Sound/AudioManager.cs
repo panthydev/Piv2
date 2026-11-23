@@ -9,6 +9,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] musicSounds, sfxSounds;
     public SoundArray[] sfxSoundArray;
     public AudioSource musicSource, sfxSource, extraSFXSource;
+    public GameObject audioSourcePrefab;
 
     private void Start()
     {
@@ -55,6 +56,22 @@ public class AudioManager : MonoBehaviour
         else
         {
             Debug.Log("ShouldPlayOneShot");
+            sfxSource.PlayOneShot(sound.clip);
+        }
+    }
+
+    public void PlaySfxAtObject(GameObject gameObject)
+    {
+        Sound sound = Array.Find(sfxSounds, x => x.name == name);
+
+        if (sound == null)
+        {
+            Debug.Log("Sound not found or is null");
+        }
+        else
+        {
+            Debug.Log("ShouldPlayOneShot");
+            
             sfxSource.PlayOneShot(sound.clip);
         }
     }

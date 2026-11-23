@@ -18,6 +18,7 @@ public class Volatile : MonoBehaviour
 
    private void Explode()
    {
+      GetComponent<Soundify>().PlayAudio();
       Collider[] colliders = Physics.OverlapSphere(this.transform.position, explosionRadius);
 
       foreach (var col in colliders)

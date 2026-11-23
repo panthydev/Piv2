@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 38.143818
+      value: 36.372715
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.313
+      value: -0.00000019937761
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 170.44875
+      value: 161.6185
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 34f963876462643449dec78c181d0501, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75,6 +75,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34f963876462643449dec78c181d0501, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1468198372802550749}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 34f963876462643449dec78c181d0501, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2804517985509801462}
   m_SourcePrefab: {fileID: 100100000, guid: 34f963876462643449dec78c181d0501, type: 3}
 --- !u!1 &7230898242696275035 stripped
 GameObject:
@@ -183,3 +186,17 @@ MonoBehaviour:
   upwardsModifier: 2
   explosionParticleSystemPrefab: {fileID: 7379041083774995540, guid: b2056eb4a600f394c834edc1ddc4fc35, type: 3}
   rb: {fileID: 0}
+--- !u!114 &2804517985509801462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7230898242696275035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e855e07dbcd11cc48854c16823cfc80b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  audioContainer: {fileID: 6418180475301049370, guid: 86e245b619181494a9659c557f7a0ecc, type: 2}
+  audioSourcePrefab: {fileID: 3524533305059042093, guid: 6d95795992772254587cca4e44425298, type: 3}
