@@ -12,24 +12,52 @@ public class PlayerMovement : MonoBehaviour
     // TICK IS ON WALL, DO THE REST WITH ATTACHING TO WALL, FREEZING CONSTRAINTS, ONLY ONE JUMP OFF, GIVE JUMP BOOST ALONG WALLS NORMAL VECTOR
     
     // fix all these variables at some point
-    private Vector3 wallNormal;
+    
+    
+    [Header("Movement Settings")]
+    
+    [Header("Slide")]
+    public float LandingBoost = 5;
+    public float SlideMinSpeedThreshold;
+    public float SlideVelocityControl = 1f;
+    [Header("Running")]
+    public float acceleration = 1.5f;
+    public float MaxSpeed = 10;
+    public float maxSlideSpeed = 20;
+    public float tempSlideSpeed = 0;
+    [Header("Jumping")]
+    public float jumpForceUp = 10;
+    public float jumpForceForward = 4f;
+    
+    [Header("Air")]
+    public float MaxAirSpeed = 20;
+    public float airResistance = 2;
+    public float airAcceleration = 1.5f;
+    
+    [Header("Gravity")]
+    public const float gravityAcceleration = 30f;
+    public  float GravityAccelerationOnWall = 15f;
+    
+    [Header("Statemachine checks (fake)")]
     public bool IsOnWall;
+    public bool isAir;
+    public bool _isSliding;
+    public bool JustHitGround;
+    
+
+    [Header("Wallrunning READ")]
     public GameObject hitWall;
     public GameObject currentWall;
     public GameObject LastJumpedFromWall;
+    
+    [Header("Other Debug READ")]
+    public float jumpCoolDownTimer = 1f;
+    public float jumpCoolDownTimerResetValue = 1f;
+    
+    private Vector3 wallNormal;
     private CapsuleCollider playerCollider;
-    public bool isAir;
     private float _verticalAngle;
     private float _horizontalAngle = 0f;
-    public float jumpForceUp = 10;
-    public float jumpForceForward = 4f;
-    public float SlideVelocityControl = 1f;
-    public float LandingBoost = 5;
-    public float SlideMinSpeedThreshold;
-    public InputAction moveInput;
-    public InputAction mouseInput;
-    public InputAction jumpInput;
-    public InputAction slideInput;
     private Animator _animator;
     private Vector3 K_Input;
     private Vector3 K_WishDir;
@@ -42,17 +70,11 @@ public class PlayerMovement : MonoBehaviour
     private float _upperLookLimit = 60;
     private float _lowerLookLimit = -89f;
 
-    public const float gravityAcceleration = 30f;
-    public  float GravityAccelerationOnWall = 15f;
-    public float acceleration = 1.5f;
-    public float airAcceleration = 1.5f;
-    public float airResistance = 2;
-    public float MaxSpeed = 10;
-    public float MaxAirSpeed = 20;
-    public float maxSlideSpeed = 20;
-    public float maxWallSpeed = 2000;
-    public float maxWallVelocityChange = 1f;
-    public float tempSlideSpeed = 0;
+    [Header("Player Input")]
+    public InputAction moveInput;
+    public InputAction mouseInput;
+    public InputAction jumpInput;
+    public InputAction slideInput;
 
     public Rigidbody rb;
 
@@ -136,7 +158,6 @@ public class PlayerMovement : MonoBehaviour
     }
 
 
-    public bool _isSliding;
     private void HandleSlide()
     {
         bool shouldSlide = _slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround);
@@ -179,26 +200,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private float OldYValue; //compare against new to see if in air
-    private void CheckForAir()
-    {
-        
-        
-        if (transform.position.y != OldYValue)
-        {
-            isAir = true;
-        }
-        else
-        {
-            isAir = false;
-        }
+ 
 
-        OldYValue = rb.linearVelocity.y;
-    }
-
-    public float jumpCoolDownTimer = 1f;
-    public float jumpCoolDownTimerResetValue = 1f;
-    public bool JustHitGround;
 
     private void HandleJump()
     {

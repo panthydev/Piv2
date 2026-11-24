@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="318cb1c5-2d2d-47d2-82ad-6f09233627c1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Misc/Interactable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Misc/Interactable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +151,7 @@
       <workItem from="1795268676734" duration="10280000" />
       <workItem from="1795352416793" duration="1172000" />
       <workItem from="1795367843576" duration="14204000" />
-      <workItem from="1795435869122" duration="19815000" />
+      <workItem from="1795435869122" duration="20341000" />
     </task>
     <servers />
   </component>
