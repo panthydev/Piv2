@@ -145,6 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Interactable
   defaultThrowForce: 20
+  interactRadius: 2
   YOffset: 1.5
 --- !u!64 &6485901316260667877
 MeshCollider:

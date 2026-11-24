@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Interactable : MonoBehaviour
 {
     [SerializeField] private float defaultThrowForce;
+    [SerializeField] private float interactRadius = 1.5f;
     private Rigidbody rb;
     private Canvas canvas;
     private GameObject TextObj;
@@ -24,7 +25,7 @@ public class Interactable : MonoBehaviour
     private void SetupInteractable()
     {
         var col = GetComponent<SphereCollider>();
-        col.radius = 1.6f;
+        col.radius = interactRadius;
         col.isTrigger = true;
         transform.tag = "Interactable";
     }
@@ -59,7 +60,8 @@ public class Interactable : MonoBehaviour
 
         textMesh.text = "E";
         textMesh.alignment = TextAlignmentOptions.Center;
-        textMesh.fontSize = 13;
+        textMesh.fontSize = 3;
+        textMesh.color = Color.red;
         
         //hide
         canvasObjectHolder.SetActive(false);

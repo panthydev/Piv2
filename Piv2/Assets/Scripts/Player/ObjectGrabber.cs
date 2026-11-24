@@ -113,6 +113,7 @@ public class ObjectGrabber : MonoBehaviour
 
     private void DropInteractable(bool throwItem = false)
     {
+        
         if (!throwItem)
         {
             AudioManager.Instance.PlaySFX("ui_click");
@@ -125,10 +126,11 @@ public class ObjectGrabber : MonoBehaviour
         rb.isKinematic = false;
         //enable collisions again between player and object
         Collider objectCollider = heldInteractable.GetComponent<Collider>();
-        Physics.IgnoreCollision(playerCollider, objectCollider);
+        Physics.IgnoreCollision(playerCollider, objectCollider, false);
 
         if (throwItem)
         {
+            
             AudioManager.Instance.PlaySFX("Throw");
             heldInteractable.ThrowObject(Camera.main.transform.forward, PlayerRb.linearVelocity);
         }
