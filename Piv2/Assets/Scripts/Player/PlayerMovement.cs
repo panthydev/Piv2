@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Jumping")]
     public float jumpForceUp = 10;
     public float jumpForceForward = 4f;
+    private float groundCheckCooldown = 0.15f;
+    private float groundCheckTimer;
     
     [Header("Air")]
     public float MaxAirSpeed = 20;
@@ -53,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Other Debug READ")]
     public float jumpCoolDownTimer = 1f;
     public float jumpCoolDownTimerResetValue = 1f;
-    
+
+    private Vector3 groundNormal;
     private Vector3 wallNormal;
     private CapsuleCollider playerCollider;
     private float _verticalAngle;
@@ -162,14 +165,14 @@ public class PlayerMovement : MonoBehaviour
     {
         bool shouldSlide = _slideValue > 0 && (rb.linearVelocity.magnitude > SlideMinSpeedThreshold || JustHitGround);
         
-        if (shouldSlide && JustHitGround)
+        if (shouldSlide && JustHitGround && !isAir)
         {
                 print("Gave speed bost");
+
+                Vector3 groundVelocity = Vector3.ProjectOnPlane(rb.linearVelocity, groundNormal);
+
+                rb.linearVelocity = groundVelocity;
                 
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x * LandingBoost, rb.linearVelocity.y, // maybe give boost always, ? and not just from fall
-                    rb.linearVelocity.z * LandingBoost);
-                
-            
                 JustHitGround = false;
             
         }
@@ -208,8 +211,10 @@ public class PlayerMovement : MonoBehaviour
         jumpCoolDownTimer -= Time.fixedDeltaTime;
         
         
+        
         if (_jumpValue == 1 && !isAir && !IsOnWall) //IsOnWall is temp maybe
         {
+            groundCheckTimer = groundCheckCooldown;
             _animator.SetTrigger("IsJumping 0");
             jumpCoolDownTimer = jumpCoolDownTimerResetValue;
             isAir = true;
@@ -252,11 +257,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckIsAir()
     {
+        JustHitGround = false;
+        groundCheckTimer -= Time.fixedDeltaTime;
+
+        if (groundCheckTimer > 0)
+        {
+            JustHitGround = false;
+            return;
+        }
         if (Physics.Raycast(transform.position, transform.up*-1.05f, out var hit, 1.05f))
         {
             Debug.DrawRay(transform.position, transform.up*-1);
             if (hit.collider.CompareTag("Ground"))
             {
+                groundNormal = hit.normal;
                 if (isAir)
                 {
                     JustHitGround = true;

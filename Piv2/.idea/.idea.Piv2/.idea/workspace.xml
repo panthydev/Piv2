@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="318cb1c5-2d2d-47d2-82ad-6f09233627c1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Piv2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/AudioSource.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/AudioSource.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/PlayBoxArea.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/PlayBoxArea.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Managers/Sound/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Managers/Sound/AudioManager.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Player/PlayerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,7 +154,7 @@
       <workItem from="1795352416793" duration="1172000" />
       <workItem from="1795367843576" duration="14204000" />
       <workItem from="1795435869122" duration="20848000" />
-      <workItem from="1795513909953" duration="7180000" />
+      <workItem from="1795513909953" duration="8677000" />
     </task>
     <servers />
   </component>

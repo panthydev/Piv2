@@ -4956,6 +4956,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6009150297718609690, guid: e65c36be48ab00b4f8713403761a5c0a, type: 3}
+      propertyPath: jumpForceUp
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009150297718609690, guid: e65c36be48ab00b4f8713403761a5c0a, type: 3}
+      propertyPath: maxSlideSpeed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009150297718609690, guid: e65c36be48ab00b4f8713403761a5c0a, type: 3}
+      propertyPath: jumpForceForward
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6009150297718609690, guid: e65c36be48ab00b4f8713403761a5c0a, type: 3}
+      propertyPath: SlideMinSpeedThreshold
+      value: 13
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
