@@ -38,6 +38,7 @@ public class Interactable : MonoBehaviour
         canvasObjectHolder.AddComponent<Canvas>();
         canvasObjectHolder.AddComponent<CanvasScaler>();
         canvasObjectHolder.AddComponent<GraphicRaycaster>();
+        canvasObjectHolder.AddComponent<Billboard>();
 
         canvas = canvasObjectHolder.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.WorldSpace;
