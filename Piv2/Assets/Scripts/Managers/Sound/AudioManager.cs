@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(playMusic());
+        
     }
 
     private void Awake()
@@ -21,7 +21,7 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+           // DontDestroyOnLoad(gameObject);
         }
         else
         {

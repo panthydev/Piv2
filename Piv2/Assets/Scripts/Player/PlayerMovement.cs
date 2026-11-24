@@ -525,7 +525,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //perform rotation on the player transform Y axis and the Camera (head) X axis for up and down
         _verticalAngle =
-            Mathf.Clamp(_verticalAngle += _mDelta.y * -1, _lowerLookLimit,
+            Mathf.Clamp(_verticalAngle += _mDelta.y * -1f, _lowerLookLimit,
                 _upperLookLimit); // update stored camera angle from mouse input
         _horizontalAngle += _mDelta.x;
 
