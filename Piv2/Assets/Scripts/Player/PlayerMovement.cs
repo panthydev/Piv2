@@ -537,7 +537,7 @@ public class PlayerMovement : MonoBehaviour
     }
 }
 /* TODO
-- add walljumps
+
 - Need to implement some kind of user interface that isnt diegetic.
 - need one more physics material? probably just another wall type or ground type
 - import the sound manager ive always used, get some source sounds in here
