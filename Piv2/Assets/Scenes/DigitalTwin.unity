@@ -150597,7 +150597,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -634, y: -416}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &626123851
@@ -472016,10 +472016,6 @@ PrefabInstance:
       propertyPath: sfxSource
       value: 
       objectReference: {fileID: 1369618352}
-    - target: {fileID: 352803726713933063, guid: 8fc375e90d4d210408252e9c3adab09a, type: 3}
-      propertyPath: sfxSounds.Array.data[2].clip
-      value: 
-      objectReference: {fileID: 8300000, guid: f623b21d8d667474b8cfa571db15b32a, type: 3}
     - target: {fileID: 5318172051967913121, guid: 8fc375e90d4d210408252e9c3adab09a, type: 3}
       propertyPath: m_Name
       value: AudioManager
