@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="318cb1c5-2d2d-47d2-82ad-6f09233627c1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/Assets/Models/Props/Materials/Fluorescent_Light_MTL_albedo.mat" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Models/Props/Materials/Fluorescent_Light_MTL_albedo.mat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/AudioManager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/AudioManager.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/DigitalTwin.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/DigitalTwin.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +154,7 @@
       <workItem from="1795367843576" duration="14204000" />
       <workItem from="1795435869122" duration="20848000" />
       <workItem from="1795513909953" duration="8677000" />
-      <workItem from="1795609773972" duration="7126000" />
+      <workItem from="1795609773972" duration="7722000" />
     </task>
     <servers />
   </component>
