@@ -7,7 +7,7 @@ public class LightController : MonoBehaviour
 {
    public Color LightColor1;
    public Color LightColor2;
-   private float LightIntensity = 8;
+   private float LightIntensity = 2;
    private Light[] lights;
 
 
@@ -28,18 +28,19 @@ public class LightController : MonoBehaviour
 
    private IEnumerator LightAlarm()
    {
-      float factor = Mathf.Pow(2, LightIntensity);
-
-      LightColor2 *= factor;
-      LightColor1 *= factor;
+      LightColor2 *= LightIntensity;
+      LightColor1 *= LightIntensity;
       while (true)
       {
-         AudioManager.Instance.PlaySFX("Alarm");
-         lights[0].color = LightColor2;
-         lights[1].color = LightColor2;
+         foreach (var light in lights)
+         {
+            light.color = LightColor2;   
+         }
          yield return new WaitForSecondsRealtime(0.5f);
-         lights[0].color = LightColor1;
-         lights[1].color = LightColor1;
+         foreach (var light in lights)
+         {
+            light.color = LightColor1;   
+         }
          yield return new WaitForSecondsRealtime(0.5f);
       }
    }
