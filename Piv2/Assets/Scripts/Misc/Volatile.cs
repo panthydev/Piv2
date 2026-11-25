@@ -27,6 +27,11 @@ public class Volatile : MonoBehaviour
          {
             component.GetComponent<Rigidbody>().AddExplosionForce(ExplosiveForce, transform.position, explosionRadius, upwardsModifier);
          }
+
+         if (col.transform.CompareTag("Breakable"))
+         {
+            col.transform.gameObject.SetActive(false);
+         }
       }
    }
 
@@ -35,7 +40,9 @@ public class Volatile : MonoBehaviour
    {
       
       if (rb.linearVelocity.magnitude > speedThresholdForBoom)
-      { 
+      {
+         
+         
          Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
          
          Explode();
