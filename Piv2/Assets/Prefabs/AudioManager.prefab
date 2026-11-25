@@ -51,9 +51,9 @@ MonoBehaviour:
   - name: Throw
     clip: {fileID: 8300000, guid: 91442446ad9cff4459a10a04be75211c, type: 3}
   - name: AlarmVoice
-    clip: {fileID: 8300000, guid: c5dd93ad21caa3948aaca806680f8696, type: 3}
+    clip: {fileID: 8300000, guid: f623b21d8d667474b8cfa571db15b32a, type: 3}
   - name: Alarm
-    clip: {fileID: 8300000, guid: 0c01626d7f4d4634cbf976c8f0396bcc, type: 3}
+    clip: {fileID: 8300000, guid: db61ec9f155d00b4e8ec378f1f407be8, type: 3}
   sfxSoundArray: []
   musicSource: {fileID: 0}
   sfxSource: {fileID: 0}
