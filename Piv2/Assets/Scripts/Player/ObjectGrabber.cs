@@ -130,7 +130,6 @@ public class ObjectGrabber : MonoBehaviour
 
         if (throwItem)
         {
-            
             AudioManager.Instance.PlaySFX("Throw");
             heldInteractable.ThrowObject(Camera.main.transform.forward, PlayerRb.linearVelocity);
         }

@@ -123,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
         HandleWallRunLogic();
         HandleSlide();
         CalculatePlayerDirection();
-       
     }
 
     private void HandleAnimationStates()
@@ -308,7 +307,6 @@ public class PlayerMovement : MonoBehaviour
     private void CalculatePlayerDirection()
     {
         float maxGroundVelocityChange = acceleration * Time.fixedDeltaTime;
-        float maxAirVelocityChange = airAcceleration * Time.fixedDeltaTime; // for DE-accelerating usually.
         
         
         M_WishDir = _mainCamera.transform.forward;
@@ -327,7 +325,6 @@ public class PlayerMovement : MonoBehaviour
         {
             float targetMaxSpeed = MaxSpeed;
             
-            
             if (!_isSliding)
             {
                 tempSlideSpeed = maxSlideSpeed;
@@ -339,7 +336,6 @@ public class PlayerMovement : MonoBehaviour
                 tempSlideSpeed = Mathf.Lerp(tempSlideSpeed, MaxSpeed, 0.01f);
                 targetMaxSpeed = tempSlideSpeed;
             }
-           
             
             Vector3 wishDir = new Vector3(K_WishDir.x * targetMaxSpeed, rb.linearVelocity.y, K_WishDir.z * targetMaxSpeed);
             Vector3 newVelocityDir = Vector3.MoveTowards(rb.linearVelocity, wishDir, maxGroundVelocityChange);
@@ -348,10 +344,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isAir && !IsOnWall) // air control / steering
         {
-
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
-
-            
 
             if (horizontalVelocity.sqrMagnitude > 0.01f && K_Input.magnitude > 0) // if i have momentum
             {
@@ -365,13 +358,10 @@ public class PlayerMovement : MonoBehaviour
                 
                 
                horizontalVelocity = Vector3.MoveTowards(horizontalVelocity, wishDir, steeringAmount); // move currDir towards wishDir
-            //  horizontalVelocity = Vector3.RotateTowards(horizontalVelocity, wishDir * MaxAirSpeed,
-              //    airAcceleration * Time.fixedDeltaTime, 0);
+            
 
             }
-           // HandleGravity(); // maybe we want different gravity acceleration in diff situations ? :3
-            //always apply air resistance
-
+            
             horizontalVelocity = Vector3.MoveTowards(horizontalVelocity,
                 Vector3.zero,
                 airResistance * Time.fixedDeltaTime);

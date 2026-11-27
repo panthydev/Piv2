@@ -18,12 +18,20 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartAlarm();
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            Cursor.visible = true;
+        }
+        else
+        {
+            StartAlarm();
+            Cursor.visible = false;
+        }
     }
 
     private void Update()
     {
-        PauseMenu();
+      //  PauseMenu();
     }
 
     public void PauseMenu()
@@ -82,6 +90,16 @@ public class GameManager : MonoBehaviour
             LightMaterial.SetColor("_EmissionColor", LightColor1);
             yield return new WaitForSecondsRealtime(0.5f);
         }
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("DigitalTwin");
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
     
 }

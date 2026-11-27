@@ -8,26 +8,30 @@ public class Volatile : MonoBehaviour
    public float explosionRadius;
    public float upwardsModifier = 10f;
    public GameObject explosionParticleSystemPrefab;
+   public Soundify soundify;
 
    public Rigidbody rb;
 
    private void Awake()
    {
       rb = GetComponent<Rigidbody>();
+      soundify = GetComponent<Soundify>();
    }
 
    private void Explode()
    {
-      GetComponent<Soundify>().PlayAudio();
+      soundify.PlayAudio();
       Collider[] colliders = Physics.OverlapSphere(this.transform.position, explosionRadius);
 
       foreach (var col in colliders)
       {
          if (col.TryGetComponent(typeof(Rigidbody), out var component))
          {
-            component.GetComponent<Rigidbody>().AddExplosionForce(ExplosiveForce, transform.position, explosionRadius, upwardsModifier);
+            component.GetComponent<Rigidbody>().AddExplosionForce(ExplosiveForce,
+               transform.position,
+               explosionRadius,
+               upwardsModifier);
          }
-
          if (col.transform.CompareTag("Breakable"))
          {
             col.transform.gameObject.SetActive(false);
@@ -35,22 +39,17 @@ public class Volatile : MonoBehaviour
       }
    }
 
-
    private void OnCollisionEnter(Collision collision)
    {
-      
+      if (collision.transform.CompareTag("NonExplodeSurface")) return;
       if (rb.linearVelocity.magnitude > speedThresholdForBoom)
       {
          
-         
-         Instantiate(explosionParticleSystemPrefab, transform.position, Quaternion.identity);
-         
+         Instantiate(explosionParticleSystemPrefab,
+            transform.position,
+            Quaternion.identity);
          Explode();
          Destroy(this.gameObject);
-      }
-      else
-      {
-         GetComponent<Soundify>().PlayDropSound();
-      }
+      } else soundify.PlayDropSound();
    }
 }

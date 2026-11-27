@@ -75,11 +75,12 @@ public class Interactable : MonoBehaviour
 
         rb.linearVelocity = playerVelocity;
         rb.AddForce(direction * throwForce, ForceMode.Impulse);
-
+     //   Debug.DrawRay(transform.position, direction * throwForce, Color.red, 5f);
     }
 
     public void SetTextActive(bool b)
     {
+        
         canvas.gameObject.SetActive(b);
         TextObj.gameObject.SetActive(b);
     }
